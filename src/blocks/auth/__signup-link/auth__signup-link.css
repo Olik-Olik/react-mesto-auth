@@ -1,0 +1,12 @@
+.auth__signup-link{
+    position: absolute;
+    width: 358px;
+    height: 14px;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+   text-align:right;
+    text-decoration: none;
+    color: #FFFFFF;
+}

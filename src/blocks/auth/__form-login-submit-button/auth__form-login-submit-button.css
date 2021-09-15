@@ -1,0 +1,12 @@
+.auth__form-login-submit-button{
+
+/* position: absolute;*/
+    width: 53px;
+    height: 22px;
+    font-size: 18px;
+    line-height: 22px;
+/* identical to box height, or 122% */
+    text-align: right;
+    background: none;
+    color: #FFFFFF;
+}

@@ -1,0 +1,9 @@
+.auth__login-signup{
+/*основная форма*/
+/*.auth__form-login{*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: normal;
+
+}
