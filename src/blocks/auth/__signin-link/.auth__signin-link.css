@@ -1,10 +1,7 @@
-.auth__signup-link{
-
-/*зарегистрироваться*/
-
+.auth__signin-link{
     width: 358px;
     height: 14px;
-    bottom: 100px;
+    bottom: 150px;
     align-items: center;
     font-size: 14px;
     line-height: 17px;
@@ -18,5 +15,6 @@
     border-style: none;
     justify-content: center;
     font-weight: 400;
-  /*  color:#CCCCCC;*/
+      color:yellow;
+
 }

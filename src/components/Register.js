@@ -55,22 +55,19 @@ function Register(props) {
                                required
                                name="password"
                                type="password"
-                               value={password}
+                               value={password }
                                onChange={handleChangePassword}/>
 
-                        <button className="
-
-                        auth__form-login-submit-button "
-                                type="submit">Зарегистрироваться-РЕГИСТЕР
+                        <button className="auth__form-login-submit-button "
+                                type="submit">Зарегистрироваться :)
                         </button>
 
-                    <div className="auth__login-signup-Do_Register">
-                        Уже зарегистрированы? Войти</div>
+                  {/*  <div className="auth__login-signup-Do_Register">
+                        Уже зарегистрированы? Войти</div>*/}
 
                         <Link to="/sign-in"
-                              className="auth__signup-link">
-                            Войти</Link>
-
+                              className="auth__login-signup-Do_Register auth__signup-link">
+                            Уже зарегистрированы?  Войти</Link>
                     </form>
                 </div>
             )

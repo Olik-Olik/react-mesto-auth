@@ -64,7 +64,7 @@ function Login(props) {
 
                 <button className="auth__form-login-submit-button"
                         type="submit">
-                    Войти-ЛОГИН
+                    Войти :)
                 </button>
             </form>
 
@@ -72,7 +72,7 @@ function Login(props) {
                 <p>Уже зарегистрированы? Войти</p>
 
                 <Link to="/sign-up"
-                      className="auth__signup-link">
+                      className="auth__signin-link">
                     Зарегистрироваться</Link>
             </div>
         </div>
