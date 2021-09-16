@@ -1,17 +1,17 @@
-.auth__login-welcome{
-
-
-display: flex;
+.auth__login-welcome {
+/*Заголовок*/
+    display: flex;
     max-width: 358px;
     height: 29px;
-margin: 0 auto;
-    margin-top:60px;
+    margin: 0 auto;
+    margin-top: 60px;
     font-family: Inter;
     font-style: normal;
     font-weight: 900;
     font-size: 24px;
     /* identical to box height */
-     justify-content: center;
+    justify-content: center;
     text-align: center;
     color: #FFFFFF;
+    color: chartreuse;
 }

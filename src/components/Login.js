@@ -33,8 +33,6 @@ function Login(props) {
 
     }
 
-
-
     return (
         <div className="auth">
             {/*  <Logo title={'MESTO'}/>*/}
@@ -43,7 +41,7 @@ function Login(props) {
                   className="auth__form-login">
 
                 <input
-                    className="auth__form-login-input"
+                    className="auth__form-login-input-email"
                     required
                     name="email"
                     type="email"
@@ -66,7 +64,7 @@ function Login(props) {
 
                 <button className="auth__form-login-submit-button"
                         type="submit">
-                    Войти
+                    Войти-ЛОГИН
                 </button>
             </form>
 

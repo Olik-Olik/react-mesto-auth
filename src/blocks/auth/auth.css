@@ -3,6 +3,8 @@
     color: #FFFFFF;
     margin: 0 auto;
      top:200px;
+    color: darkseagreen;
+    background: yellow;
 }
 
 @media screen and (max-width: 320px)

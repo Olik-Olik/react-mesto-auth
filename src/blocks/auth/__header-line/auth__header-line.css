@@ -1,6 +1,8 @@
-.auth__header-white-line{
+.auth__header-line{
     font-size: 18px;
     line-height: 22px;
     text-align: right;
     color: #FF0000;
+  /*  color: #FFFFFF;*/
+
 }

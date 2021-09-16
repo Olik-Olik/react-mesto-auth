@@ -6,18 +6,21 @@
     font-size: 18px;
     line-height: 22px;
     /* identical to box height, or 122% */
-    background: none;
+    background: #FFFFFF;;
     /* identical to box height */
     text-align: center;
-    color: #FFFFFF;
+    color: black;
+    font-style: normal;
+    font-weight: 400;
   /*  color: #000000;*/
-
-    margin: 216px 0 109px auto;
+    border-style: none;
+   margin: 216px 0 109px auto;
 
 }
+/*
 @media screen and (max-width: 320px){
     .auth__form-login-submit-button{
-       /* position: absolute;*/
+       !* position: absolute;*!
         width: 260px;
         height: 46px;
         font-size: 16px;
@@ -26,4 +29,4 @@
         margin: 187px 0 74px auto;
 
     }
-}
+}*/

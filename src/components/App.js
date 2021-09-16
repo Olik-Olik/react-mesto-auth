@@ -32,7 +32,7 @@ export default function App(props) {
 
     const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false);
-/*    const [userData, setUserData] = useState(false);*/
+    /*    const [userData, setUserData] = useState(false);*/
     const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);
     const [infoSuccess, setInfoSuccess] = useState(false);
     const [isShowLoad, setIsShowLoad] = useState(false);
@@ -198,7 +198,7 @@ export default function App(props) {
                                 }
 
                                 if (res.status === 401) {
-                                    console.log("401 Токен пользователь с email не найден"+ err.toString())
+                                    console.log("401 Токен пользователь с email не найден" + err.toString())
                                 }
                                 if (res.status === 200) {
                                     return res.json()
@@ -212,19 +212,19 @@ export default function App(props) {
     function handleRegister({password, email}) {
         return auth.register(password, email)
             .then((res) => {
-                //успешен то кладем в
-                if (res) {//успешен
-                    history.push("/sign-in");
-                } else {
-                    console.log("Не получилось зарегистрироваться")
-                        .catch((err) => {
-                                console.log(`Вот такая ошибка вылезла ${err}`)
-                            }
-                        )
+                    //успешен то кладем в
+                    if (res) {//успешен
+                        history.push("/sign-in");
+                    } else {
+                        console.log("Не получилось зарегистрироваться")
+                            .catch((err) => {
+                                    console.log(`Вот такая ошибка вылезла ${err}`)
+                                }
+                            )
+                    }
                 }
-            }
             )
-            }
+    }
 
 //out off
     function handleSignOut() {
@@ -243,128 +243,140 @@ export default function App(props) {
             // проверим токен в локалсторадж
             auth.checkToken(jwt)
                 .then((res) => {
-                    if (res) {
-                        // здесь можем получить данные пользователя!
-                        const credential = {
-                            password: res.password,
-                             email: res.email
+                        if (res) {
+                            // здесь можем получить данные пользователя!
+                            const credential = {
+                                password: res.password,
+                                email: res.email
+                            }
+                                // поместим их в стейт внутри App.js
+                                .then((res) => {
+                                        setEmail(res.credential.email);
+                                        setPassword(res.credential.password);
+                                        setLoggedIn(true);
+                                        props.history.push("/")
+                                            .catch((err) => {
+                                                if (res.status === 400) {
+                                                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
+                                                }
+
+                                                if (res.status === 401) {
+                                                    console.log("401 Токен пользователь с email не найден" + err.toString())
+                                                }
+                                                if (res.status === 200) {
+                                                    return res.json()
+                                                }
+                                            })
+
+                                    }
+                                )
+
                         }
-                        // поместим их в стейт внутри App.js
-                       .then((res)=> {
-                        setEmail(res.credential.email);
-                        setPassword(res.credential.password);
-                        setLoggedIn(true);
-                        props.history.push("/")
                     }
-                        ,[history])
-                    }
-                });
+                )
         }
     }
+        useEffect(() => {
+            hukUseEffectToken()
+        }, [loggedIn]);
 
-    useEffect(() => {
-        hukUseEffectToken()
-    }, [loggedIn]);
-
-    return (
-        <BrowserRouter>
-            <CurrentUserContext.Provider value={currentUser}>
-                <>
-                    <main className="content">
-                        <Header
-                            credential={credential}
-                            loggedIn={loggedIn}
-                            handleSignOut={handleSignOut}
-                        />
-                        <Switch>
-                            {/*НОС защита от неавторизованных*/}
-                            <ProtectedRoute exact path="/"
-                                            component={Main}
-                                            loggedIn={loggedIn}
-                                            cards={cards}
-                                            onCardClick={handleCardClick}
-                                            onEditAvatar={handleEditAvatarClick}
-                                            onEditProfile={handleEditProfileClick}
-                                            onAddPlace={handleAddPlaceClick}
-                                            onCardDelete={handleCardDeleteClick}
-                                            onCardLike={handleCardLike}
-                                            isShow={isShowLoad}
-                                            setIsEditAvatarPopupOpen={(evt) => {
-                                                console.log("I'm a superstar avatar!!!")
-                                                handleEditAvatarClick(evt)
-                                            }}
-
-                                            setIsEditProfilePopupOpen={(evt) => {
-                                                console.log("I'm a superstar too!!!")
-                                                handleEditProfileClick(evt)
-                                            }}
-
-                                            setIsAddPlacePopupOpen={(evt) => {
-                                                console.log("I'm a superstar too too!!!")
-                                                handleAddPlaceClick(evt)
-                                            }}
-
-                                            setIsImagePopup={(evt) =>
-                                                handleCardClick(evt)}
+        return (
+            <BrowserRouter>
+                <CurrentUserContext.Provider value={currentUser}>
+                    <>
+                        <main className="content">
+                            <Header
+                                credential={credential}
+                                loggedIn={loggedIn}
+                                handleSignOut={handleSignOut}
                             />
+                            <Switch>
+                                {/*НОС защита от неавторизованных*/}
+                                <ProtectedRoute exact path="/"
+                                                component={Main}
+                                                loggedIn={loggedIn}
+                                                cards={cards}
+                                                onCardClick={handleCardClick}
+                                                onEditAvatar={handleEditAvatarClick}
+                                                onEditProfile={handleEditProfileClick}
+                                                onAddPlace={handleAddPlaceClick}
+                                                onCardDelete={handleCardDeleteClick}
+                                                onCardLike={handleCardLike}
+                                                isShow={isShowLoad}
+                                                setIsEditAvatarPopupOpen={(evt) => {
+                                                    console.log("I'm a superstar avatar!!!")
+                                                    handleEditAvatarClick(evt)
+                                                }}
 
-                            {/*авторизация*/}
-                            <Route exact path="/sign-in">
-                                <Login
-                                    handleLogin={props.handleLogin}
-                                    handleInfoTooltip={props.handleInfoTooltip}
+                                                setIsEditProfilePopupOpen={(evt) => {
+                                                    console.log("I'm a superstar too!!!")
+                                                    handleEditProfileClick(evt)
+                                                }}
+
+                                                setIsAddPlacePopupOpen={(evt) => {
+                                                    console.log("I'm a superstar too too!!!")
+                                                    handleAddPlaceClick(evt)
+                                                }}
+
+                                                setIsImagePopup={(evt) =>
+                                                    handleCardClick(evt)}
                                 />
-                            </Route>
 
-                            {/*регистрация */}
-                            <Route exact path="/sign-up">
-                                <Register
-                                    handleRegister={props.handleRegister}
-                                    handleInfoTooltip={props.handleInfoTooltip}/>
-                            </Route>
+                                {/*авторизация*/}
+                                <Route exact path="/sign-in">
+                                    <Login
+                                        handleLogin={props.handleLogin}
+                                        handleInfoTooltip={props.handleInfoTooltip}
+                                    />
+                                </Route>
 
-                            < Route>
-                                {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-up"/>}
-                            </Route>
+                                {/*регистрация */}
+                                <Route exact path="/sign-up">
+                                    <Register
+                                        handleRegister={props.handleRegister}
+                                        handleInfoTooltip={props.handleInfoTooltip}/>
+                                </Route>
 
-
-                            {isEditAvatarPopupOpen && <EditAvatarPopup
-                                isOpen={isEditAvatarPopupOpen}
-                                onClose={closeAllPopups}
-                                handleUpdateAvatar={handleUpdateAvatar}
-                                buttonText="Cохранить"/>}
-
-                            {isEditProfilePopupOpen && <EditProfilePopup
-                                isOpen={isEditProfilePopupOpen}
-                                onClose={closeAllPopups}
-                                buttonText="Сохранить"
-                                handleUpdateProfile={handleUpdateProfile}
-                            />
-                            }
-                            {isAddPlacePopupOpen && <AddPlacePopup
-                                isOpen={isAddPlacePopupOpen}
-                                onClose={closeAllPopups}
-                                onAddPlacePopup={handleAddPlaceSubmit}
-                                buttonText="Добавить"/>
-                            }
-
-                            <ConfirmDeletePopup
-                                isOpen={isConfirmDeletePopup}
-                                onClose={closeAllPopups}
-                                buttonText="Да"/>
-
-                            {
-                                isImagePopupOpen && <ImagePopup
-                                    isOpen={isImagePopupOpen}
-                                    card={selectedCard}
-                                    onClose={closeAllPopups}/>
-                            }
-                        </Switch>
-                    </main>
-                </>
-                <Footer/>
-            </CurrentUserContext.Provider>
-        </BrowserRouter>)
+                                < Route>
+                                    {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-up"/>}
+                                </Route>
 
 
-}
+                                {isEditAvatarPopupOpen && <EditAvatarPopup
+                                    isOpen={isEditAvatarPopupOpen}
+                                    onClose={closeAllPopups}
+                                    handleUpdateAvatar={handleUpdateAvatar}
+                                    buttonText="Cохранить"/>}
+
+                                {isEditProfilePopupOpen && <EditProfilePopup
+                                    isOpen={isEditProfilePopupOpen}
+                                    onClose={closeAllPopups}
+                                    buttonText="Сохранить"
+                                    handleUpdateProfile={handleUpdateProfile}
+                                />
+                                }
+                                {isAddPlacePopupOpen && <AddPlacePopup
+                                    isOpen={isAddPlacePopupOpen}
+                                    onClose={closeAllPopups}
+                                    onAddPlacePopup={handleAddPlaceSubmit}
+                                    buttonText="Добавить"/>
+                                }
+
+                                <ConfirmDeletePopup
+                                    isOpen={isConfirmDeletePopup}
+                                    onClose={closeAllPopups}
+                                    buttonText="Да"/>
+
+                                {
+                                    isImagePopupOpen && <ImagePopup
+                                        isOpen={isImagePopupOpen}
+                                        card={selectedCard}
+                                        onClose={closeAllPopups}/>
+                                }
+                            </Switch>
+                        </main>
+                    </>
+                    <Footer/>
+                </CurrentUserContext.Provider>
+            </BrowserRouter>)
+        }

@@ -99,7 +99,7 @@
 
 @import url(./blocks/auth/__signup-link-Do-Register/auth__signup-link-Do-Register.css);
 
-@import url(./blocks/auth/__header-white-line/auth__header-white-line.css);
+@import url(blocks/auth/__header-line/auth__header-line.css);
 
 /*@import url(./blocks/
 

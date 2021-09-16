@@ -1,4 +1,4 @@
-//про регистрацию да-нет
+/*//про регистрацию да-нет
 import React from "react";
 import Succes_Icon from '../images/Success_Icon.svg';
 import One_More_Icon from '../images/One_More_Ocon.svg';
@@ -11,13 +11,13 @@ function InfoTooltip(props) {
           <div className={`auth__popup-windows`}>
 
             {props.infoSuccses ?
-                ( < img className="auth__popup-image"
+                 < img className="auth__popup-image"
                alt="Успешная иконка регистрации"
-               src={Success_Icon}/> ) :
+               src={Success_Icon}/>  :
 
-                ( < img className="auth__popup-image"
+                < img className="auth__popup-image"
                     alt="Неуспешная иконка регистрации"
-                    src={One_More_Icon}/>)
+                    src={One_More_Icon}/>
 
                 </div>
                 </div>
@@ -27,5 +27,5 @@ function InfoTooltip(props) {
                 img src={Close_Icon_Auth}      />
      )
 
-export default InfoTooltip;
+export default InfoTooltip;*/
 

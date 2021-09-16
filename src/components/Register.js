@@ -6,7 +6,7 @@ function Register(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword]= useState("");
-    const [confirmPEmail, setConfirmEmail]= useState("");
+    const [confirmEmail, setConfirmEmail]= useState("");
 
     function handleChangeEmail(evt) {
         setEmail(evt.target.value);
@@ -20,7 +20,7 @@ function Register(props) {
                     return;
                 }
 
-                if (props.password === props.confirmPassword && props.email === props.confirmEmail) {
+                if (password === confirmPassword && email === confirmEmail) {
                     props.handleRegister(password, email)
                         .then((res) => {
                             if (res.statusCode !== 400) {
@@ -37,39 +37,41 @@ function Register(props) {
                     <p className="auth__login-welcome">Регистрация</p>
                     <form onSubmit={handleSubmitRegister}
                           className="auth__form-login">
-
+                        <label htmlFor="email">
+                            email:
+                        </label>
                         <input
-                            className="auth__form-login-input"
+                            className="auth__form-login-input-email"
                             required
                             name="email"
                             type="email"
                             value={email}
                             onChange={handleChangeEmail}/>
-                        <label htmlFor="email">
-                            email:
-                        </label>
 
-                        <input id="password"
+                        <label htmlFor="password">
+                            password:
+                        </label>
+                        <input className="auth__form-login-input-password"
                                required
                                name="password"
                                type="password"
                                value={password}
                                onChange={handleChangePassword}/>
-                        <label htmlFor="password">
-                            password:
-                        </label>
 
-                        <button className="auth__form-login-submit-button"
-                                type="submit">Зарегистрироваться
+                        <button className="
+
+                        auth__form-login-submit-button "
+                                type="submit">Зарегистрироваться-РЕГИСТЕР
                         </button>
-                    </form>
-                    <div className="auth__login-signup-Do_Register">
-                        <p>Уже зарегистрированы? Войти</p>
 
-                        <Link to="/sign-up"
+                    <div className="auth__login-signup-Do_Register">
+                        Уже зарегистрированы? Войти</div>
+
+                        <Link to="/sign-in"
                               className="auth__signup-link">
                             Войти</Link>
-                    </div>
+
+                    </form>
                 </div>
             )
     }
