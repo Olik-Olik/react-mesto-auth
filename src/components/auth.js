@@ -11,19 +11,8 @@ export const checkToken = (token) => {
             'Authorization': `Bearer ${token}`,
         }
     })
-        .then(res => {
 
-                if (res.status === 400) {
-                    console.log("400 Если токен не передан или передан без Bearer . некорректно заполнено одно из полей ")
-                }
-                if (res.status === 401) {
-                    console.log("401 Если передан некорректный . токен пользователь с email не найден")
-                }
-                if (res.status === 200) {
-                    return res.json()
-                }
-            }
-        )
+
         .then((credential)=>{return (credential)})
         .catch((err) => {
         console.log(err)
@@ -65,19 +54,7 @@ export const login = (password, email) => {
         },
         body: JSON.stringify({password, email})
     })
-        .then(res => {
-//=> res.json()
-                if (res.status === 400) {
-                    console.log("400 Если токен не передан или передан без Bearer . некорректно заполнено одно из полей ")
-                }
-                if (res.status === 401) {
-                    console.log("401 Если передан некорректный . токен пользователь с email не найден")
-                }
-                if (res.status === 200) {
-                    return res.json()
-                }
-            }
-        )
+
         .then((data) => {
             if (data.token) {
                 localStorage.setItem('jwt', data.token);

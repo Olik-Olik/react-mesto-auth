@@ -34,7 +34,7 @@ function Register(props) {
             return (
                 <div className="auth">
                     {/*  <Logo title={'MESTO'}/>*/}
-                    <p className="login__welcome">Регистрация</p>
+                    <p className="auth__login-welcome">Регистрация</p>
                     <form onSubmit={handleSubmitRegister}
                           className="auth__form-login">
 
@@ -60,22 +60,19 @@ function Register(props) {
                         </label>
 
                         <button className="auth__form-login-submit-button"
-                                type="submit">Войти
+                                type="submit">Зарегистрироваться
                         </button>
                     </form>
-
-
-                    <div className="login__signup">
-                        <p>Уже зарегистрированы?</p>
+                    <div className="auth__login-signup-Do_Register">
+                        <p>Уже зарегистрированы? Войти</p>
 
                         <Link to="/sign-up"
-                              className="signup__link">
-                            Зарегистрироваться</Link>
+                              className="auth__signup-link">
+                            Войти</Link>
                     </div>
                 </div>
             )
-
     }
-
-
 export default Register;
+/*     className="auth__signup-link-Do-Register">
+        Зарегистрироваться</Link>*/

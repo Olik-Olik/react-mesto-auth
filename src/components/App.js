@@ -148,7 +148,6 @@ export default function App(props) {
             .catch((err) => {
                 console.log('MAMA, место не добавлено!!!: ' + err.toString())
             })
-
     }
 
 
@@ -193,11 +192,19 @@ export default function App(props) {
             .then((res) => {
                     if (res && email || res && password)
                         history.push("/")
-                    else console.log("УПС, не получилось зайти к себе")
-                        .catch((err) => {
-                                console.log(`Вот такая ошибка вылезла ${err}`)
-                            }
-                        )
+                            .catch((err) => {
+                                if (res.status === 400) {
+                                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
+                                }
+
+                                if (res.status === 401) {
+                                    console.log("401 Токен пользователь с email не найден"+ err.toString())
+                                }
+                                if (res.status === 200) {
+                                    return res.json()
+                                }
+                            })
+
                 }
             )
     }
@@ -214,7 +221,8 @@ export default function App(props) {
                                 console.log(`Вот такая ошибка вылезла ${err}`)
                             }
                         )
-                }}
+                }
+            }
             )
             }
 

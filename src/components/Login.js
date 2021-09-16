@@ -38,7 +38,7 @@ function Login(props) {
     return (
         <div className="auth">
             {/*  <Logo title={'MESTO'}/>*/}
-            <p className="login__welcome">Регистрация</p>
+            <p className="auth__login-welcome">Регистрация</p>
             <form onSubmit={handleSubmitLogin}
                   className="auth__form-login">
 
@@ -53,7 +53,8 @@ function Login(props) {
                     email:
                 </label>
 
-                <input id="password"
+                <input className="auth__form-login-input-password"
+                     /*  id="password"*/
                        required
                        name="password"
                        type="password"
@@ -69,8 +70,8 @@ function Login(props) {
                 </button>
             </form>
 
-            <div className="auth__login-signup">
-                <p>Уже зарегистрированы?</p>
+            <div className="auth__login-signup-Do-Register">
+                <p>Уже зарегистрированы? Войти</p>
 
                 <Link to="/sign-up"
                       className="auth__signup-link">

@@ -1,8 +1,18 @@
 /*основная форма*/
 .auth__form-login{
      display: flex;
+    max-width: 358px;
+    height: 27px;
+    align-items: center;
     flex-direction: column;
-    justify-content: center;
-    align-content: normal;
+    padding: 0 0 23px 0;
+    background: none;
+    width: 358px;
+    border-style: none;
+
+    margin-top: 285px;
+
+    border-bottom: 2px solid #CCCCCC;
+     color:#CCCCCC;
 
 }

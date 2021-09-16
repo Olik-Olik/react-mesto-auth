@@ -92,11 +92,15 @@
 @import url(./blocks/auth/__login-signup/auth__login-signup.css);
 @import url(./blocks/auth/__signup-link/auth__signup-link.css);
 @import url(./blocks/auth/__title-registration/auth__title-registration.css);
-/*
-@import url(./blocks/
-@import url(./blocks/
-@import url(./blocks/
-@import url(./blocks/
-@import url(./blocks/
-@import url(./blocks/
-@import url(./blocks/*/
+
+@import url(./blocks/auth/__login-welcome/auth__login-welcome.css);
+@import url(./blocks/auth/__popup-windows/auth__popup-windows.css);
+
+
+@import url(./blocks/auth/__signup-link-Do-Register/auth__signup-link-Do-Register.css);
+
+@import url(./blocks/auth/__header-white-line/auth__header-white-line.css);
+
+/*@import url(./blocks/
+
+@import url(./blocks!*!*/

@@ -2,6 +2,10 @@
     width: 358px;
     color: #FFFFFF;
     margin: 0 auto;
-    top:60px;
+     top:200px;
 }
-/*регистрация со входом*/
+
+@media screen and (max-width: 320px)
+{
+    .auth{width: 260px;}
+}
