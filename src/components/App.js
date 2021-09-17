@@ -15,6 +15,8 @@ import Login from './Login.js';
 import Register from './Register.js';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from './auth';
+import RegisterResult from "./RegisterResult";
+
 
 export default function App(props) {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -35,6 +37,7 @@ export default function App(props) {
     const [infoSuccess, setInfoSuccess] = useState(false);
     const [isShowLoad, setIsShowLoad] = useState(false);
     const [credential, setCredential] = useState({});
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
 
     /* useEffect(()=> {
@@ -179,6 +182,8 @@ export default function App(props) {
         setIsAddPlacePopupOpen(false);
         setIsImagePopupOpen(false);
         setIsConfirmDeletePopup(false);
+        setIsRegisterSuccess(false);
+
     }
 
 //обработчик регистрации
@@ -191,7 +196,7 @@ export default function App(props) {
  /*   function handleRegister({password, email}) {
         return auth.register(password, email)
             .then((res) => {
-                /!*  success()*!/
+               setIsRegisterSuccess(true);
                 history.push("/sign-in")
             })
             .catch((err) => {
@@ -200,9 +205,8 @@ export default function App(props) {
 
     }*/
 
-/*
     function handleLogin({password, email}) {
-        return auth
+        /*return auth
             .login(password, email)
             .then((res) => {
                     /!* if (res && email || res && password) только почта*!/
@@ -221,25 +225,26 @@ export default function App(props) {
                 if (res.status === 200) {
                     return res.json()
                 }
-            })
+            })*/
     }
-*/
 
 
-    function handleRegister({password, email}) {
+    function handleRegister(password, email) {
         return auth
             .register(password, email)
             .then((res) => {
                     //успешен то кладем в
-                    if (res) {//успешен
+                    if (res) {setInfoSuccess(true)
                         history.push("/sign-in");
-                    } else {
-                        console.log("Не получилось зарегистрироваться")
+                    } else {setInfoSuccess(false);
+                        console.log("Не получилось зарегистрироваться");
+                        setIsRegisterSuccess(true);
                     }
                 }
             )
-            .catch((err) => {
+            .catch((err) => {setInfoSuccess(false);
                     console.log(`Вот такая ошибка вылезла ${err}`)
+                setIsRegisterSuccess(true);
                 }
             )
     }
@@ -344,16 +349,22 @@ export default function App(props) {
                             {/*авторизация*/}
                             <Route exact path="/sign-in">
                                 <Login
-                                    handleLogin={props.handleLogin}
-                                    handleInfoTooltip={props.handleInfoTooltip}
+                                    handleLogin={handleLogin}
+                                /*    handleInfoTooltip={handleInfoTooltip}*/
                                 />
                             </Route>
 
                             {/*регистрация */}
                             <Route exact path="/sign-up">
                                 <Register
-                                    handleRegister={props.handleRegister}
-                                    handleInfoTooltip={props.handleInfoTooltip}/>
+                                    handleRegister={handleRegister}
+                                /*    handleInfoTooltip={handleInfoTooltip}*/
+                                />
+                                <RegisterResult
+                                    isOpen={isRegisterSuccess}
+                                    onClose={closeAllPopups}
+                                    infoSuccess={infoSuccess}
+                                />
 
 
                             </Route>
@@ -388,12 +399,13 @@ export default function App(props) {
                                 onClose={closeAllPopups}
                                 buttonText="Да"/>
 
-                            {
-                                isImagePopupOpen && <ImagePopup
+                            { isImagePopupOpen && <ImagePopup
                                     isOpen={isImagePopupOpen}
                                     card={selectedCard}
                                     onClose={closeAllPopups}/>
                             }
+
+
                         </Switch>
                     </main>
                 </>

@@ -1,9 +1,11 @@
 .auth__tooltip-icon{
-  width: 430px;
-  height: 330px;
+  width: 330px;
+  height: 430px;
 }
+
 @media screen and (max-width: 500px){
     .auth__tooltip-icon{
     width: 280px;
     height: 308px;
 }}
+

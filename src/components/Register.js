@@ -16,19 +16,10 @@ function Register(props) {
     }
             function handleSubmitRegister(evt) {
                 evt.preventDefault();
-                if (!props.password || !props.email) {
+                if (!password || !email) {
                     return;
                 }
-
-                if (password === confirmPassword && email === confirmEmail) {
-                    props.handleRegister(password, email)
-                        .then((res) => {
-                            if (res.statusCode !== 400) {
-                                props.history.push('/sign-in');
-                            }
-                        });
-                }
-
+                    props.handleRegister(password, email);
             }
 
             return (

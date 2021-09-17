@@ -1,7 +1,7 @@
 //про регистрацию да-нет
 import React from "react";
 import Success_Icon from '../images/Success_Icon.svg';
-import One_More_Icon from '../images/One_More_Ocon.svg';
+import One_More_Icon from '../images/One_More_Icon.svg';
 import Close_Icon_Auth from  '../images/Close_Icon_Auth.svg';
 /* sing-up регистрация
 * sing-in вход

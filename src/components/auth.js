@@ -24,7 +24,7 @@ export const checkToken = (token) => {
 }
 
 
-export const register =(password, email) =>{
+export const register = (password, email) =>{
     return fetch(`${BASE_URL}/signup`, {
         headers: {
             'Accept': 'application/json',
@@ -44,7 +44,7 @@ export const register =(password, email) =>{
         return response.json()
     } else {
         console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
-        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
+        //return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
     }
 }
 
