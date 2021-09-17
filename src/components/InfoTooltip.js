@@ -3,9 +3,10 @@ import React from "react";
 import Success_Icon from '../images/Success_Icon.svg';
 import One_More_Icon from '../images/One_More_Ocon.svg';
 import Close_Icon_Auth from  '../images/Close_Icon_Auth.svg';
-
+/* sing-up регистрация
+* sing-in вход
+* InfoTooltip — компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации.*/
 function InfoTooltip(props) {
-
     return (
         <div className={`popup`}>
             <div className={`auth__popup-windows`}>

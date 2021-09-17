@@ -13,36 +13,42 @@ export const checkToken = (token) => {
     })
 
 
-        .then((credential)=>{return (credential)})
+        .then((credential) => {
+            return (credential)
+        })
         .catch((err) => {
-        console.log(err)
-        return Promise.reject(err)})
-     //   .catch() дописать
+            console.log(err)
+            return Promise.reject(err)
+        })
+    //   .catch() дописать
 }
 
 
-export const register = (password, email) => {
+export const register =(password, email) =>{
     return fetch(`${BASE_URL}/signup`, {
-        method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({password, email})
+        method: 'POST',
+        body: JSON.stringify({
+            password: password,
+            email: email
+        })
     })
+        .then((response) => _handleResponse(response));
+}
 
-        .then((res) => {
-            return res.json();
-        })
-        .then((res) => {
-            return res;
-        })
-        //   .catch() дописать
-        .catch((err) => {
-            console.log(err)
-            return Promise.reject(err)})
+ function _handleResponse(response) {
+    if (response.ok) {
+        return response.json()
+    } else {
+        console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
+        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
+    }
+}
 
-};
+
 
 //IN
 export const login = (password, email) => {
@@ -54,7 +60,6 @@ export const login = (password, email) => {
         },
         body: JSON.stringify({password, email})
     })
-
         .then((data) => {
             if (data.token) {
                 localStorage.setItem('jwt', data.token);
@@ -63,12 +68,13 @@ export const login = (password, email) => {
         })
         .catch((err) => {
             console.log(err)
-            return Promise.reject(err)})
+            return Promise.reject(err)
+        })
 
-       /* .catch((err) => {
-            console.log('MAMA, Криво заполнено одно из полей!!!: ' + err.toString())
-            return Promise.reject(err)})
-        });*/
+    /* .catch((err) => {
+         console.log('MAMA, Криво заполнено одно из полей!!!: ' + err.toString())
+         return Promise.reject(err)})
+     });*/
 
 };
 

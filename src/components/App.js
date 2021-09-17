@@ -185,43 +185,46 @@ export default function App(props) {
 //обработчик авторизации
 //обработчик успешной регистрации
 //выхода
+    /*Login — компонент авторизации пользователя с необходимыми стейт-переменными.
+    Register — компонент регистрации пользователя с необходимыми стейт-переменными.*/
 
-
-    function handleRegister({password, email}) {
+ /*   function handleRegister({password, email}) {
         return auth.register(password, email)
             .then((res) => {
-              /*  success()*/
+                /!*  success()*!/
                 history.push("/sign-in")
-                    .catch((err) => {
-                        console.log('Попробуйте еще раз, что-то пошло не так' + err.toString())
-                    });
             })
-    }
+            .catch((err) => {
+                console.log('Попробуйте еще раз, что-то пошло не так' + err.toString())
+            });
 
+    }*/
 
+/*
     function handleLogin({password, email}) {
         return auth
             .login(password, email)
             .then((res) => {
-                   /* if (res && email || res && password) только почта*/
-                if (res && email)
+                    /!* if (res && email || res && password) только почта*!/
+                    if (res && email)
                         history.push("/")
-                            .catch((err) => {
-                                if (res.status === 400) {
-                                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
-                                }
-
-                                if (res.status === 401) {
-                                    console.log("401 пользователь с email не найден" + err.toString())
-                                }
-                                if (res.status === 200) {
-                                    return res.json()
-                                }
-                            })
-
                 }
             )
+            .catch((err) => {
+                if (res.status === 400) {
+                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
+                }
+
+                if (res.status === 401) {
+                    console.log("401 пользователь с email не найден" + err.toString())
+                }
+                if (res.status === 200) {
+                    return res.json()
+                }
+            })
     }
+*/
+
 
     function handleRegister({password, email}) {
         return auth
@@ -232,11 +235,11 @@ export default function App(props) {
                         history.push("/sign-in");
                     } else {
                         console.log("Не получилось зарегистрироваться")
-                            .catch((err) => {
-                                    console.log(`Вот такая ошибка вылезла ${err}`)
-                                }
-                            )
                     }
+                }
+            )
+            .catch((err) => {
+                    console.log(`Вот такая ошибка вылезла ${err}`)
                 }
             )
     }
@@ -269,22 +272,21 @@ export default function App(props) {
                                         setEmail(res.credential.email);
                                         setPassword(res.credential.password);
                                         setLoggedIn(true)
-                                    props.history.push("/")
-                                            .catch((err) => {
-                                                if (res.status === 400) {
-                                                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
-                                                }
-
-                                                if (res.status === 401) {
-                                                    console.log("401 Токен пользователь с email не найден" + err.toString())
-                                                }
-                                                if (res.status === 200) {
-                                                    return res.json()
-                                                }
-                                            })
-
+                                        props.history.push("/")
                                     }
                                 )
+                                .catch((err) => {
+                                    if (res.status === 400) {
+                                        console.log('400 Некорректно заполнено одно из полей' + err.toString())
+                                    }
+
+                                    if (res.status === 401) {
+                                        console.log("401 Токен пользователь с email не найден" + err.toString())
+                                    }
+                                    if (res.status === 200) {
+                                        return res.json()
+                                    }
+                                })
 
                         }
                     }
