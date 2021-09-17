@@ -24,6 +24,7 @@ function Main(props) {
     }
 
     return (
+        /*тут обернуть все в спиннер*/
         <main className="container">
             <section className="profile">
                 <div className="profile__person-info">

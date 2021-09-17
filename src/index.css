@@ -99,8 +99,12 @@
 
 @import url(./blocks/auth/__signup-link-Do-Register/auth__signup-link-Do-Register.css);
 
-@import url(blocks/auth/__header-line/auth__header-line.css);
+@import url(./blocks/auth/__header-line/auth__header-line.css);
 @import url(./blocks/auth/__signin-link/.auth__signin-link.css);
+
+@import url(./blocks/auth/__tooltip-icon/auth__tooltip-icon.css);
+@import url(./blocks/auth/__tooltip-phraze/auth__tooltip-phraze.css);
+@import url(./blocks/auth/__tooltip-icon/auth__tooltip-icon.css);
 
 
 
