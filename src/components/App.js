@@ -234,12 +234,12 @@ export default function App(props) {
             .register(password, email)
             .then((res) => {
                     //успешен то кладем в
-                    if (res) {setInfoSuccess(true)
-                        history.push("/sign-in");
-                    } else {setInfoSuccess(false);
-                        console.log("Не получилось зарегистрироваться");
+                        setInfoSuccess(true);
                         setIsRegisterSuccess(true);
-                    }
+                console.log("1");
+/*
+                history.push("/sign-in");
+*/
                 }
             )
             .catch((err) => {setInfoSuccess(false);
@@ -253,7 +253,8 @@ export default function App(props) {
     function handleSignOut() {
         localStorage.removeItem('jwt')
         setLoggedIn(false);
-        history.push("/sign-in")
+        console.log("2");
+      /*  history.push("/sign-in")*/
     }
 
 //проверка токена каждый раз хуком
@@ -277,7 +278,8 @@ export default function App(props) {
                                         setEmail(res.credential.email);
                                         setPassword(res.credential.password);
                                         setLoggedIn(true)
-                                        props.history.push("/")
+                                    console.log("3");
+                                    /*    history.push("/")*/
                                     }
                                 )
                                 .catch((err) => {

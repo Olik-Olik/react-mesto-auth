@@ -2,7 +2,6 @@
 import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 
-//import './Login.css';
 
 function Login(props) {
     const [email, setEmail] = useState("");
