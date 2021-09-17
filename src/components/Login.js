@@ -19,7 +19,8 @@ function Login(props) {
     }
 
     function handleSubmitLogin(evt) {
-        if (!props.password || !props.email) {
+        if (!props.email)
+       /* if (!props.password || !props.email)*/ {
             return;}
         evt.preventDefault();
         if (props.password === props.confirmPassword && props.email === props.confirmEmail) {

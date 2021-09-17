@@ -41,7 +41,7 @@ function Register(props) {
                             email:
                         </label>
                         <input
-                            className="auth__form-login-input-email"
+                            className="auth__form-login-input-email "
                             required
                             name="email"
                             type="email"

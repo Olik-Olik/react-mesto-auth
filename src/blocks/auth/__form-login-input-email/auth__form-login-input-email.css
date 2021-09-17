@@ -1,19 +1,13 @@
 .auth__form-login-input-email{
 /* Email */
-    /*    position: absolute;*/
-    width: 358px;
-    height: 14px;
+    width: 352px;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
-    position: absolute;
-    margin: 0 0 43px auto;
-    padding-bottom: 14px;
     font-style: normal;
     color: #CCCCCC;
-
     justify-content: center;
     display: flex;
     font-weight: 500;
-    border-bottom-width: 43px;
+
 }

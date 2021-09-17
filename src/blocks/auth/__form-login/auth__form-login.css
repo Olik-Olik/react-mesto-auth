@@ -2,13 +2,16 @@
 .auth__form-login{
     display: flex;
     width: 358px;
-   /* height: 260px;*/
-    align-items: center;
-    flex-direction: column;
     background: none;
+    border: 2px solid #CCCCCC;
+    border-bottom: 2px solid #CCCCCC;
+    align-items: flex-start;
+    flex-direction: column;
+    line-height: 17px;
     margin: 0 auto;
-    border-style: none;
     justify-content: center;
      color:#CCCCCC;
+    padding-bottom:  13px;
+
 
 }

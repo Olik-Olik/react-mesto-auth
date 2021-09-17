@@ -1,21 +1,14 @@
 .auth__signup-link-Do-Register{
-
   /*  margin: 150px;*/
     color: #FFFFFF;
     align-self: flex-end;
     background: #FFFFFF;
-   /* position: absolute;*/
     width: 358px;
     height: 17px;
-   /* left: 461px;
-    top: 623px;*/
     align-content: space-between;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height */
     text-align: center;
-
-
 }

@@ -10,24 +10,33 @@ function InfoTooltip(props) {
         <div className={`popup`}>
             <div className={`auth__popup-windows`}>
 
-                {props.infoSuccses ?
-                    ( < img className="auth__popup-image"
-                          alt="Успешная иконка регистрации"
-                          src={Success_Icon}/> ):
-
-                    (< img className="auth__popup-image"
-                           alt="Неуспешная иконка регистрации"
-                           src={One_More_Icon}/>)
-                }
-                    <button  className= "auth__close-icon"
-                    type="button"
-                    alt="закрытие"
-                   < img src={Close_Icon_Auth}      />
-
+                <div className="auth__login-welcome">
+                    {/* основная форма*/}
+                    <div className="auth__popup-windows">
+                        {props.handleInfoTooltipSuccess ?
+                            (
+                                /*  если все верно то Successs то показываем картинку и слова, что все гуд  */
+                                <img src ={Success_Icon}
+                                     alt = "Success registration"
+                                     className="auth__tooltip-icon"/>
+                            <p className="auth__tooltip-phraze">Вы успешно зарегистрировались </p>
+                            ) : (
+                            <img src ={OneMoreIcon}
+                            alt = "NON Success registration"
+                            className="auth__tooltip-icon" />
+                            <h1 className="auth__tooltip-phraze">Вы не зарегистрировались </p>)}
+                        <button
+                            className="popup__close-button "
+                            type="button"
+                            onClick={props.onClose}>
+                            < img src ={Close_Icon_Auth}
+                                  alt=" крестик закрытия"
+                                  className="auth__close-icon"/> </button>
+                    </div>
+                </div>
             </div>
-        </div>
-    )
-                }
+        </div>)
+}
 
                 export default InfoTooltip;
 
