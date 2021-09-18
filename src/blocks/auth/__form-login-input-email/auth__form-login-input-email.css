@@ -12,4 +12,15 @@
     justify-content: center;
     display: flex;
     margin: 0 auto;
+    background: transparent;
+    list-style-type: none;
+    text-decoration: none;
+    cursor:pointer;
+    border-style: none;
+
+    border-bottom: 1px solid white;
+    padding: 0 0 13px 0;
 }
+
+/*
+*/
