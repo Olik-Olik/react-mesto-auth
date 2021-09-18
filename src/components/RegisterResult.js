@@ -1,5 +1,4 @@
 import React from "react";
-import * as path from "path";
 import One_More_Icon from '../images/One_More_Icon.svg';
 import Success_Icon from '../images/Success_Icon.svg';
 

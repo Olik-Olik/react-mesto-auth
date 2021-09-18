@@ -10,7 +10,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import {BrowserRouter, Redirect, Route, Switch, useHistory} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch, Link, useHistory} from 'react-router-dom';
 import Login from './Login.js';
 import Register from './Register.js';
 import ProtectedRoute from './ProtectedRoute';
@@ -352,6 +352,7 @@ export default function App(props) {
                             <Route exact path="/sign-in">
                                 <Login
                                     handleLogin={handleLogin}
+                                    infoSuccess={infoSuccess}
                                 /*    handleInfoTooltip={handleInfoTooltip}*/
                                 />
                             </Route>
@@ -360,6 +361,7 @@ export default function App(props) {
                             <Route exact path="/sign-up">
                                 <Register
                                     handleRegister={handleRegister}
+                                    infoSuccess={infoSuccess}
                                 /*    handleInfoTooltip={handleInfoTooltip}*/
                                 />
                                 <RegisterResult

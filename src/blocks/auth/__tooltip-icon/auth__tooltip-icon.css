@@ -1,11 +1,7 @@
 .auth__tooltip-icon{
-  width: 330px;
-  height: 430px;
+    width: 100%;
+    object-fit: contain;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
 }
-
-@media screen and (max-width: 500px){
-    .auth__tooltip-icon{
-    width: 280px;
-    height: 308px;
-}}
-
