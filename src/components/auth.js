@@ -10,16 +10,16 @@ export const checkToken = (token) => {
 //token authentication is an HTTP authentication scheme that involves security tokens called bearer tokens
             'Authorization': `Bearer ${token}`,
         }
-    })
+    }).then((response) => handleResponse(response));
 
 
-        .then((credential) => {
+  /*      .then((credential) => {
             return (credential)
         })
         .catch((err) => {
             console.log(err)
             return Promise.reject(err)
-        })
+        })*/
     //   .catch() дописать
 }
 
@@ -36,19 +36,18 @@ export const register = (password, email) =>{
             email: email
         })
     })
-        .then((response) => _handleResponse(response));
+        .then((response) => handleResponse(response));
 }
-
- function _handleResponse(response) {
+ function handleResponse(response) {
     if (response.ok) {
-        return response.json()
+        console.log("Got response: " + response.status + ":" + response.statusText);
+        return response;//.json()
     } else {
         console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
+        return response;
         //return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
     }
 }
-
-
 
 //IN
 export const login = (password, email) => {
@@ -58,23 +57,11 @@ export const login = (password, email) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({password, email})
-    })
-        .then((data) => {
-            if (data.token) {
-                localStorage.setItem('jwt', data.token);
-                return data;
-            }
+        body: JSON.stringify({
+            password: password,
+            email: email
         })
-        .catch((err) => {
-            console.log(err)
-            return Promise.reject(err)
-        })
-
-    /* .catch((err) => {
-         console.log('MAMA, Криво заполнено одно из полей!!!: ' + err.toString())
-         return Promise.reject(err)})
-     });*/
+    }).then((response) => handleResponse(response));
 
 };
 

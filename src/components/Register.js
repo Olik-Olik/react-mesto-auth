@@ -3,10 +3,10 @@ import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 
 function Register(props) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword]= useState("");
-    const [confirmEmail, setConfirmEmail]= useState("");
+   /* const [email, setEmail] = useState(`Email`);
+    const [password, setPassword] = useState(`Пароль`);*/
+         const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
 
     function handleChangeEmail(evt) {
         setEmail(evt.target.value);
@@ -24,33 +24,39 @@ function Register(props) {
 
             return (
                 <div className="auth">
-                    {/*  <Logo title={'MESTO'}/>*/}
                     <p className="auth__login-welcome">Регистрация</p>
+
                     <form onSubmit={handleSubmitRegister}
                           className="auth__form-login">
-                        <label htmlFor="email">
-                            email:
-                        </label>
+                       {/* <label className="auth__login-label" htmlFor="email" >
+                            Email
+                        </label>*/}
+
+
                         <input
                             className="auth__form-login-input-email "
                             required
                             name="email"
                             type="email"
-                            value={email}
-                            onChange={handleChangeEmail}/>
+                            value={email ||""}
+                            placeholder="Email"
 
-                        <label htmlFor="password">
-                            password:
-                        </label>
+                            onChange={handleChangeEmail}/>
+                        {/*<label htmlFor="password" className="auth__login-label">
+                            Пароль
+                        </label>*/}
                         <input className="auth__form-login-input-password"
+
                                required
                                name="password"
                                type="password"
-                               value={password }
+                               value={password ||""}
+                               placeholder="Пароль"
                                onChange={handleChangePassword}/>
 
+
                         <button className="auth__form-login-submit-button "
-                                type="submit">Зарегистрироваться :)
+                                type="submit">Зарегистрироваться
                         </button>
 
                   {/*  <div className="auth__login-signup-Do_Register">
@@ -63,6 +69,13 @@ function Register(props) {
                 </div>
             )
     }
+
+
+
+
+
+
+
 export default Register;
 /*     className="auth__signup-link-Do-Register">
         Зарегистрироваться</Link>*/

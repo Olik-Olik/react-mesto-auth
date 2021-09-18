@@ -11,8 +11,9 @@ import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
 import {BrowserRouter, Redirect, Route, Switch, Link, useHistory} from 'react-router-dom';
-import Login from './Login.js';
-import Register from './Register.js';
+import { withRouter } from 'react-router';
+import Login from './Login';
+import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from './auth';
 import RegisterResult from "./RegisterResult";
@@ -30,14 +31,15 @@ export default function App(props) {
     // как значение провайдера контекста
     //Провайдер контекст транслирует дочерним компонентам это значение.
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+
     const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false);
     const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);
     const [infoSuccess, setInfoSuccess] = useState(false);
     const [isShowLoad, setIsShowLoad] = useState(false);
     const [credential, setCredential] = useState({});
-    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+    const [isRegResOpen, setIsRegResOpen] = useState(false);
+
 
 
     /* useEffect(()=> {
@@ -182,7 +184,7 @@ export default function App(props) {
         setIsAddPlacePopupOpen(false);
         setIsImagePopupOpen(false);
         setIsConfirmDeletePopup(false);
-        setIsRegisterSuccess(false);
+        setIsRegResOpen(false);
 
     }
 
@@ -193,132 +195,134 @@ export default function App(props) {
     /*Login — компонент авторизации пользователя с необходимыми стейт-переменными.
     Register — компонент регистрации пользователя с необходимыми стейт-переменными.*/
 
- /*   function handleRegister({password, email}) {
-        return auth.register(password, email)
+
+    function handleLogin(password, emmail) {
+        return auth
+            .login(password, emmail)
             .then((res) => {
-               setIsRegisterSuccess(true);
-                history.push("/sign-in")
+                console.log('d');
+                if (res.ok) {
+                    console.log('e');
+                    localStorage.setItem('jwt', res.json().token);
+                    /*lalalala*/
+                    setEmail(emmail);
+                    setLoggedIn(true);
+                    /*history.push('/');*/
+                    console.log('Залогинились!');
+                } else {
+                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
+                    return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
+                }
             })
             .catch((err) => {
-                console.log('Попробуйте еще раз, что-то пошло не так' + err.toString())
-            });
-
-    }*/
-
-    function handleLogin({password, email}) {
-        /*return auth
-            .login(password, email)
-            .then((res) => {
-                    /!* if (res && email || res && password) только почта*!/
-                    if (res && email)
-                        history.push("/")
-                }
-            )
-            .catch((err) => {
-                if (res.status === 400) {
+                console.log('Не залогинились :( ' + err.toString());
+                if (err.status === 400) {
                     console.log('400 Некорректно заполнено одно из полей' + err.toString())
                 }
-
-                if (res.status === 401) {
+                if (err.status === 401) {
                     console.log("401 пользователь с email не найден" + err.toString())
                 }
-                if (res.status === 200) {
-                    return res.json()
-                }
-            })*/
+            })
     }
-
 
     function handleRegister(password, email) {
         return auth
             .register(password, email)
             .then((res) => {
-                    //успешен то кладем в
-                        setInfoSuccess(true);
-                        setIsRegisterSuccess(true);
-                console.log("1");
-/*
-                history.push("/sign-in");
-*/
+                if (res.ok) {
+                    setInfoSuccess(true);
+                    setIsRegResOpen(true);
+                    /*lalalala*/
+                    /*history.push("/sign-in")*/
+                    console.log("1");
+                } else {
+                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
+                    return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
                 }
-            )
-            .catch((err) => {setInfoSuccess(false);
-                    console.log(`Вот такая ошибка вылезла ${err}`)
-                setIsRegisterSuccess(true);
+            })
+            .catch((err) => {
+                console.log('Не зарегались :( ' + err.toString());
+                setInfoSuccess(false);
+                console.log(`Вот такая ошибка вылезла ${err}`)
+                setInfoSuccess(false);
+                setIsRegResOpen(true);
                 }
             )
     }
 
 //out off
     function handleSignOut() {
+        console.log("2 - logout");
         localStorage.removeItem('jwt')
         setLoggedIn(false);
-        console.log("2");
-      /*  history.push("/sign-in")*/
+        /*lalala*/
+     /*   history.push("/sign-in")*/
     }
 
-//проверка токена каждый раз хуком
-    /*  useEffect(() => {*/
+//проверка токена  хуком
+/*      useEffect(() => {*/
     function hukUseEffectToken() {
         // если у пользователя есть токен в localStorage,
         // эта функция проверит валидность токена
         const jwt = localStorage.getItem('jwt');
         if (jwt) {
+            console.log("has JWT");
             // проверим токен в локалсторадж
             auth.checkToken(jwt)
-                .then((res) => {
-                        if (res) {
                             // здесь можем получить данные пользователя!
-                            const credential = {
-                                password: res.password,
-                                email: res.email
-                            }
                                 // поместим их в стейт внутри App.js
                                 .then((res) => {
-                                        setEmail(res.credential.email);
-                                        setPassword(res.credential.password);
-                                        setLoggedIn(true)
-                                    console.log("3");
-                                    /*    history.push("/")*/
+                                    if (res.ok) {
+                                        console.log("333");
+                                        /*history.push('/');*/
+                                        setLoggedIn(true);
+                                    } else {
+                                        console.log("Вылезла ошибка при проверке токена, УПС, Повезло-то как! " + res.statusText);
+                                        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
                                     }
-                                )
+                                })
                                 .catch((err) => {
-                                    if (res.status === 400) {
+                                    if (err.status === 400) {
                                         console.log('400 Некорректно заполнено одно из полей' + err.toString())
                                     }
 
-                                    if (res.status === 401) {
+                                    if (err.status === 401) {
                                         console.log("401 Токен пользователь с email не найден" + err.toString())
                                     }
-                                    if (res.status === 200) {
-                                        return res.json()
-                                    }
-                                })
-
-                        }
-                    }
+                                }
                 )
+        }
+        else
+        {
+            console.log('Токена нету!!!');
         }
     }
 
-    useEffect(() => {
-        hukUseEffectToken()
-    }, [loggedIn]);
+     useEffect(() => {
+        hukUseEffectToken();
+    }, []);
 
     return (
+      /*  который предоставит объект истории, который вы ищете, через ловушку.*/
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-                    <main className="content">
+                {/*  <main className="content">*/}
+
+                        {loggedIn ? console.log('ww') : console.log('zz')}
                         <Header
+                            email={email}
                             credential={credential}
                             loggedIn={loggedIn}
                             handleSignOut={handleSignOut}
-
                         />
+                {/*    <main className="content">*/}
+                        <Route>
+                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+                        </Route>
+
                         <Switch>
-                            {/*НОС защита от неавторизованных*/}
-                            <ProtectedRoute exact path="/"
+                            <ProtectedRoute exact={true} path = '/'
                                             component={Main}
                                             loggedIn={loggedIn}
                                             cards={cards}
@@ -348,35 +352,28 @@ export default function App(props) {
                                                 handleCardClick(evt)}
                             />
 
+
                             {/*авторизация*/}
-                            <Route exact path="/sign-in">
+                            <Route exact={true} path="/sign-in">
                                 <Login
                                     handleLogin={handleLogin}
-                                    infoSuccess={infoSuccess}
-                                /*    handleInfoTooltip={handleInfoTooltip}*/
+                                    /*infoSuccess={infoSuccess}*/
                                 />
                             </Route>
 
                             {/*регистрация */}
-                            <Route exact path="/sign-up">
+                            <Route exact={true} path="/sign-up">
                                 <Register
                                     handleRegister={handleRegister}
-                                    infoSuccess={infoSuccess}
-                                /*    handleInfoTooltip={handleInfoTooltip}*/
+                                    /*infoSuccess={infoSuccess}*/
                                 />
                                 <RegisterResult
-                                    isOpen={isRegisterSuccess}
+                                    isOpen={isRegResOpen}
                                     onClose={closeAllPopups}
                                     infoSuccess={infoSuccess}
                                 />
-
-
                             </Route>
-
-                            < Route>
-                                {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-up"/>}
-                            </Route>
-
+                        </Switch>
 
                             {isEditAvatarPopupOpen && <EditAvatarPopup
                                 isOpen={isEditAvatarPopupOpen}
@@ -408,10 +405,7 @@ export default function App(props) {
                                     card={selectedCard}
                                     onClose={closeAllPopups}/>
                             }
-
-
-                        </Switch>
-                    </main>
+               {/*     </main>*/}
                 </>
                 <Footer/>
             </CurrentUserContext.Provider>
