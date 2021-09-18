@@ -9,6 +9,7 @@
     justify-content: flex-end;
     cursor: pointer;
     align-items: flex-end;
+   text-decoration: none;
 }
 .auth__header-exit:hover{
 cursor: pointer;
