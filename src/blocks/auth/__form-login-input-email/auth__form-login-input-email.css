@@ -3,11 +3,13 @@
     width: 352px;
     font-size: 14px;
     line-height: 17px;
-    text-align: center;
     font-style: normal;
     color: #CCCCCC;
+
+    font-weight: 500;
+    align-items: flex-start;
+    flex-direction: column;
     justify-content: center;
     display: flex;
-    font-weight: 500;
-
+    margin: 0 auto;
 }

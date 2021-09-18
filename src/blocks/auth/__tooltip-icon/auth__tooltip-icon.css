@@ -4,4 +4,7 @@
     justify-content: center;
     flex-direction: column;
     display: flex;
+    /* max-height: 85vw;
+    max-width: 85vh;*/
 }
+/* 478 x 387 а надо 430 х 330 */

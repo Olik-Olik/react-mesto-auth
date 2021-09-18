@@ -3,15 +3,17 @@
     display: flex;
     width: 358px;
     background: none;
-    border: 2px solid #CCCCCC;
-    border-bottom: 2px solid #CCCCCC;
+    font-weight: 400;
+    line-height: 17px;
+    font-size: 14px;
+    color:#CCCCCC;
+
     align-items: flex-start;
     flex-direction: column;
-    line-height: 17px;
     margin: 0 auto;
     justify-content: center;
-     color:#CCCCCC;
-    padding-bottom:  13px;
+
+   /* padding-bottom:  13px;*/
 
 
 }
