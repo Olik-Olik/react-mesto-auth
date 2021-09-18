@@ -13,8 +13,15 @@
   /*  color: #000000;*/
     border-style: none;
    margin: 216px 0 109px auto;
+    cursor: pointer;
 
 }
+.auth__form-login-submit-button:hover{
+Opacity: 85%;
+    cursor: pointer;
+}
+
+
 /*
 @media screen and (max-width: 320px){
     .auth__form-login-submit-button{

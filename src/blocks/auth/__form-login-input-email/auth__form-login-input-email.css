@@ -4,9 +4,9 @@
     font-size: 14px;
     line-height: 17px;
     font-style: normal;
-    color: #CCCCCC;
 
-    font-weight: 500;
+    color: #CCCCCC;
+    font-weight: 400;
     align-items: flex-start;
     flex-direction: column;
     justify-content: center;
@@ -22,5 +22,8 @@
     padding: 0 0 13px 0;
 }
 
-/*
-*/
+.auth__form-login-input-email{
+font-weight: 500;
+color: #FFFFFF;
+    cursor: pointer;
+}
