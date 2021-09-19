@@ -279,9 +279,9 @@ export default function App(props) {
                         loggedIn={loggedIn}
                         handleSignOut={handleSignOut}
                     />
-                    <Route>
+                 {/*   <Route>
                         {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
-                    </Route>
+                    </Route>*/}
 
                     <Switch>
                         <ProtectedRoute exact={true} path='/'
@@ -297,8 +297,7 @@ export default function App(props) {
                                         handleEditAvatarOpen={handleEditAvatarOpen}
                                         handleEditProfileOpen={handleEditProfileOpen}
                                         handleAddPlaceOpen={handleAddPlaceOpen}
-                                        setIsImagePopup={(evt) =>
-                                            handleCardClick(evt)}
+                                        setIsImagePopup={(evt) => handleCardClick(evt)}
                         />
 
 
@@ -314,7 +313,10 @@ export default function App(props) {
                             <Register
                                 handleRegister={handleRegister}
                             />
+                        </Route>
 
+                        <Route path='/'>
+                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                         </Route>
                     </Switch>
 
