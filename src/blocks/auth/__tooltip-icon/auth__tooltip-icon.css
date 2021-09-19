@@ -1,4 +1,4 @@
-.auth__tooltip-icon{
+.auth__tooltip-icon {
     width: 100%;
     object-fit: contain;
     justify-content: center;
@@ -7,4 +7,5 @@
     /* max-height: 85vw;
     max-width: 85vh;*/
 }
+
 /* 478 x 387 а надо 430 х 330 */

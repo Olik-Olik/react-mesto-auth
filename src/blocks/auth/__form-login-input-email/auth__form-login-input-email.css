@@ -1,5 +1,5 @@
-.auth__form-login-input-email{
-/* Email */
+.auth__form-login-input-email {
+    /* Email */
     width: 352px;
     font-size: 14px;
     line-height: 17px;
@@ -15,15 +15,15 @@
     background: transparent;
     list-style-type: none;
     text-decoration: none;
-    cursor:pointer;
+    cursor: pointer;
     border-style: none;
 
     border-bottom: 1px solid white;
     padding: 0 0 13px 0;
 }
 
-.auth__form-login-input-email{
-font-weight: 500;
-color: #FFFFFF;
+.auth__form-login-input-email {
+    font-weight: 500;
+    color: #FFFFFF;
     cursor: pointer;
 }

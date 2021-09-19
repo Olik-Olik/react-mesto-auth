@@ -1,4 +1,4 @@
-.auth__login-signup{
+.auth__login-signup {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,8 +7,8 @@
     height: 60px;
     color: #FFFFFF;
     position: absolute;
-background: black;
-  /*  height: 17px;*/
+    background: black;
+    /*  height: 17px;*/
     margin: 0 auto;
 
     font-style: normal;
@@ -19,6 +19,6 @@ background: black;
 
     text-align: center;
 
-    top:200px;
+    top: 200px;
     color: aquamarine;
 }

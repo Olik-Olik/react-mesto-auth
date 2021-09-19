@@ -40,7 +40,7 @@ function Login(props) {
                     onChange={handleChangeEmail}/>
 
                 <input className="auth__form-login-input-password"
-                      /* autoComplete="off"*/
+                    /* autoComplete="off"*/
                        required
                        name="password"
                        type="password"

@@ -16,7 +16,7 @@ function Card(props) {
 
         `${isOwn ? 'elements__trash' : 'elements__trash-hidden'}`;
 
- /*  ` ${props.isOwn === currentUser._id ? '': 'elements__trash-hidden'}`*/
+    /*  ` ${props.isOwn === currentUser._id ? '': 'elements__trash-hidden'}`*/
 
 // Создаём переменную, которую после зададим в `className` для кнопки лайка
 // Если лайкнуто текущим мной-чернеет лайк
@@ -39,35 +39,35 @@ function Card(props) {
 
 
     return (
-  //      <CurrentUserContext.Provider value={currentUser}>
-            <div className="elements__card"
-           /*      onClick={handleCardClick}*/
-            >
-                <div className="elements__trash-image">
-                    <button aria-label='Удаление элемента'
+        //      <CurrentUserContext.Provider value={currentUser}>
+        <div className="elements__card"
+            /*      onClick={handleCardClick}*/
+        >
+            <div className="elements__trash-image">
+                <button aria-label='Удаление элемента'
+                        type="button"
+                        onClick={handleCardDeleteClick}
+                        className={cardDeleteButtonClassName}/>
+                <img alt={props.alt}
+                     className="elements__image" /* {props.title}*/
+                     onClick={handleCardClick}
+                     src={props.src}/>
+                <div className="elements__combine">
+                    {/* eslint-disable-next-line jsx-a11y/heading-has-content*/}
+                    <h2 className="elements__word">{props.title}</h2>
+                    <div className="elements__container-like">
+                        <button
+                            // className="elements__like"
+                            className={cardLikeButtonClassName}
+                            aria-label='Лайк'
                             type="button"
-                            onClick={handleCardDeleteClick}
-                            className={cardDeleteButtonClassName}/>
-                    <img alt={props.alt}
-                         className="elements__image" /* {props.title}*/
-                         onClick={handleCardClick}
-                         src={props.src}/>
-                    <div className="elements__combine">
-                        {/* eslint-disable-next-line jsx-a11y/heading-has-content*/}
-                        <h2 className="elements__word">{props.title}</h2>
-                        <div className="elements__container-like">
-                            <button
-                                // className="elements__like"
-                                className={cardLikeButtonClassName}
-                                aria-label='Лайк'
-                                type="button"
-                                onClick={handleCardLike}/>
-                            <p className="elements__like-count">{props.card.likes.length}</p>
-                        </div>
+                            onClick={handleCardLike}/>
+                        <p className="elements__like-count">{props.card.likes.length}</p>
                     </div>
                 </div>
             </div>
-  //      </CurrentUserContext.Provider>
+        </div>
+        //      </CurrentUserContext.Provider>
     )
 }
 

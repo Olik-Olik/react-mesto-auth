@@ -15,11 +15,11 @@ function Header(props) {
                 <img alt="logo" className="header__logo" src={logo}/>
                 <Switch>
                     <Route exact path='/'>
-                        <div className= "auth__correct-logo-exit-email">
-                        <span className="auth__header-email">{props.email}</span>
-                        <Link to='/sign-in' onClick={props.handleSignOut} className="auth__header-exit">
-                            <span>Выйти</span>
-                        </Link>
+                        <div className="auth__correct-logo-exit-email">
+                            <span className="auth__header-email">{props.email}</span>
+                            <Link to='/sign-in' onClick={props.handleSignOut} className="auth__header-exit">
+                                <span>Выйти</span>
+                            </Link>
                         </div>
                     </Route>
                     <Route exact path='/sign-in'>

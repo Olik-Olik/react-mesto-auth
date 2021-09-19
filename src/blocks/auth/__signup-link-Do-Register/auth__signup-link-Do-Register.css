@@ -1,5 +1,5 @@
-.auth__signup-link-Do-Register{
-  /*  margin: 150px;*/
+.auth__signup-link-Do-Register {
+    /*  margin: 150px;*/
     color: #FFFFFF;
     align-self: flex-end;
     background: #FFFFFF;
@@ -13,6 +13,7 @@
     text-align: center;
 }
 
-.auth__signup-link-Do-Register{
-cursor: pointer;
-color:#A9A9A9}
+.auth__signup-link-Do-Register {
+    cursor: pointer;
+    color: #A9A9A9
+}

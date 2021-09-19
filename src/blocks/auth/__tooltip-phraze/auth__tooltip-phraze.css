@@ -1,4 +1,4 @@
-.auth__tooltip-phraze{
+.auth__tooltip-phraze {
     /* Вы успешно зарегистрировались! */
     position: absolute;
     width: 358px;
@@ -10,7 +10,10 @@
     text-align: center;
     color: #000000;
 }
-@media screen and (max-width: 500px){
-    .auth__tooltip-phraze{
-width:244px;
-height:48px;}}
+
+@media screen and (max-width: 500px) {
+    .auth__tooltip-phraze {
+        width: 244px;
+        height: 48px;
+    }
+}

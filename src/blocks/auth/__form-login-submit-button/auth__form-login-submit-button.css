@@ -1,4 +1,4 @@
-.auth__form-login-submit-button{
+.auth__form-login-submit-button {
     width: 358px;
     height: 50px;
     font-size: 18px;
@@ -10,14 +10,15 @@
     color: black;
     font-style: normal;
     font-weight: 400;
-  /*  color: #000000;*/
+    /*  color: #000000;*/
     border-style: none;
-   margin: 216px 0 109px auto;
+    margin: 216px 0 109px auto;
     cursor: pointer;
 
 }
-.auth__form-login-submit-button:hover{
-Opacity: 85%;
+
+.auth__form-login-submit-button:hover {
+    Opacity: 85%;
     cursor: pointer;
 }
 

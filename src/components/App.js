@@ -68,21 +68,20 @@ export default function App(props) {
     }, []);
 
 //card
-    useEffect(() =>
-    {
-        if(loggedIn){
+    useEffect(() => {
+        if (loggedIn) {
             api.getInitialCards()
-            .then((res) => {
-                setCards(res)
-            })
-            .catch((err) => console.log('MAMA, Карточки не  получены!!!: ' + err.toString()))
-        }},[loggedIn]);
-
+                .then((res) => {
+                    setCards(res)
+                })
+                .catch((err) => console.log('MAMA, Карточки не  получены!!!: ' + err.toString()))
+        }
+    }, [loggedIn]);
 
 
 //user
     useEffect(() => {
-        if(loggedIn) {
+        if (loggedIn) {
             api.getUserInfo()
                 .then(data => {
                     setCurrentUser(data);
@@ -91,7 +90,8 @@ export default function App(props) {
                         console.log('MAMA, Аватарчик не  получен!!!: ' + err.toString())
                     }
                 )
-        }}, [loggedIn]);
+        }
+    }, [loggedIn]);
 
     function handleUpdateAvatar(userData) {
         // Запрещаем браузеру переходить по адресу формы
@@ -280,7 +280,7 @@ export default function App(props) {
                         loggedIn={loggedIn}
                         handleSignOut={handleSignOut}
                     />
-                 {/*   <Route>
+                    {/*   <Route>
                         {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                     </Route>*/}
                     {!isLoading &&

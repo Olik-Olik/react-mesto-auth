@@ -1,5 +1,5 @@
-.auth__signup-link{
-/*зарегистрироваться*/
+.auth__signup-link {
+    /*зарегистрироваться*/
     width: 358px;
     bottom: 100px;
     align-items: center;
@@ -15,5 +15,5 @@
     border-style: none;
     justify-content: center;
     font-weight: 400;
-  /*  color:#CCCCCC;*/
+    /*  color:#CCCCCC;*/
 }

@@ -14,15 +14,14 @@ const ProtectedRoute = ({ component: Component, ...props  }) => {
 export default ProtectedRoute;*/
 
 
-
 import React from 'react';
-import { Route, Redirect } from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 
-const ProtectedRoute = ({ component: Component, ...props }) => {
+const ProtectedRoute = ({component: Component, ...props}) => {
     return (
         <Route exact={props.exact} path={props.path}>
             {() =>
-                props.loggedIn === true ? <Component {...props} /> : <Redirect to="/sign-in" />
+                props.loggedIn === true ? <Component {...props} /> : <Redirect to="/sign-in"/>
             }
         </Route>
     );

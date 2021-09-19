@@ -4,7 +4,7 @@ import React from "react";
 import oneMoreIcon from '../images/oneMoreIcon.svg';
 import Success_Icon from '../images/successIcon.svg';
 
-function InfoToolTip(props){
+function InfoToolTip(props) {
 
     return (
         <div className={`popup ${props.isOpen ? "popup_opened" : ""} auth__tooltip-icon`}>
@@ -31,4 +31,5 @@ function InfoToolTip(props){
 
 
 }
+
 export default InfoToolTip;
