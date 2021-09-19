@@ -1,14 +1,12 @@
 //для авторизации
 import React, {useState} from "react";
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 
 
 function Login(props) {
-/*    const [email, setEmail] = useState(`Email`);
-    const [password, setPassword] = useState(`Пароль`);*/
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const history = useHistory();
 
     function handleChangeEmail(evt) {
         setEmail(evt.target.value);
@@ -20,7 +18,8 @@ function Login(props) {
 
     function handleSubmitLogin(evt) {
         evt.preventDefault();
-            props.handleLogin(password, email);
+        props.handleLogin(password, email);
+        history.push('/');
     }
 
     return (

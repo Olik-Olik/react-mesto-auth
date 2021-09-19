@@ -28,36 +28,66 @@ export default function App(props) {
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [email, setEmail] = useState("");
-    const history = useHistory();
+/*    const history = useHistory();*/
     const [loggedIn, setLoggedIn] = useState(false);
-    const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);
+/*    const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);*/
     const [infoSuccess, setInfoSuccess] = useState(false);
     const [credential, setCredential] = useState({});
     const [isRegResOpen, setIsRegResOpen] = useState(false);
 
+    //проверка токена  хуком
+    function hukUseEffectToken() {
+        // если у пользователя есть токен в localStorage,
+        // эта функция проверит валидность токена
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            console.log("has JWT");
+            // проверим токен в локалсторадж
+            auth.checkToken(jwt)
+                // здесь можем получить данные пользователя!
+                // поместим их в стейт внутри App.js
+                .then((res) => {
+                    setLoggedIn(true);
+                    setEmail(res.data.email);
+                })
+                .catch((err) => {
+                    setLoggedIn(false);
+                })
+        } else {
+            console.log('Токена нету!!!');
+            setLoggedIn(false);
+        }
+    }
+
+    useEffect(() => {
+        hukUseEffectToken();
+    }, []);
+
 //card
     useEffect(() =>
-        api.getInitialCards()
+    {
+        if(loggedIn){
+            api.getInitialCards()
             .then((res) => {
                 setCards(res)
             })
-            .catch((err) => console.log('MAMA, Карточки не  получены!!!: ' + err.toString())
-            ), []);
-    /* })*/
+            .catch((err) => console.log('MAMA, Карточки не  получены!!!: ' + err.toString()))
+        }},[loggedIn]);
+
 
 
 //user
     useEffect(() => {
-        api.getUserInfo()
-            .then(data => {
-                setCurrentUser(data);
-            })
-            .catch((err) => {
-                console.log('MAMA, Аватарчик не  получен!!!: ' + err.toString())
-            })
-    }, []);
-
-    /* })*/
+        if(loggedIn) {
+            api.getUserInfo()
+                .then(data => {
+                    setCurrentUser(data);
+                })
+                .catch((err) => {
+                        console.log('MAMA, Аватарчик не  получен!!!: ' + err.toString())
+                    }
+                )
+        }}, [loggedIn]);
 
     function handleUpdateAvatar(userData) {
         // Запрещаем браузеру переходить по адресу формы
@@ -201,16 +231,11 @@ export default function App(props) {
                 localStorage.setItem('jwt', res.token);
                 setEmail(emmail);
                 setLoggedIn(true);
-                console.log('Залогинились!');
+                console.log('Залогинились 1!');
             })
             .catch((err) => {
                 console.log('Не залогинились :( ' + err.toString());
-                if (err.status === 400) {
-                    console.log('400 Некорректно заполнено одно из полей' + err.toString())
-                }
-                if (err.status === 401) {
-                    console.log("401 пользователь с email не найден" + err.toString())
-                }
+                setLoggedIn(false);
             })
     }
 
@@ -220,7 +245,6 @@ export default function App(props) {
             .then((res) => {
                 setInfoSuccess(true);
                 setIsRegResOpen(true);
-                /*history.push("/sign-in")*/
                 console.log("1");
             })
             .catch((err) => {
@@ -238,34 +262,6 @@ export default function App(props) {
         localStorage.removeItem('jwt')
         setLoggedIn(false);
     }
-
-//проверка токена  хуком
-    function hukUseEffectToken() {
-        // если у пользователя есть токен в localStorage,
-        // эта функция проверит валидность токена
-        const jwt = localStorage.getItem('jwt');
-        if (jwt) {
-            console.log("has JWT");
-            // проверим токен в локалсторадж
-            auth.checkToken(jwt)
-                // здесь можем получить данные пользователя!
-                // поместим их в стейт внутри App.js
-                .then((res) => {
-                    setLoggedIn(true);
-                    setEmail(res.data.email);
-                })
-                .catch((err) => {
-                    setLoggedIn(false);
-                })
-        } else {
-            console.log('Токена нету!!!');
-            setLoggedIn(false);
-        }
-    }
-
-    useEffect(() => {
-        hukUseEffectToken();
-    }, []);
 
     return (
         /*  который предоставит объект истории, который вы ищете, через ловушку.*/
@@ -300,7 +296,6 @@ export default function App(props) {
                                         setIsImagePopup={(evt) => handleCardClick(evt)}
                         />
 
-
                         {/*авторизация*/}
                         <Route exact={true} path="/sign-in">
                             <Login
@@ -315,8 +310,16 @@ export default function App(props) {
                             />
                         </Route>
 
-                        <Route path='/'>
-                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+{/*
+                        <Route
+                            render={() => {return (loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>)}}
+                        >
+
+                        </Route>
+*/}
+
+                        <Route>
+                            {() => loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                         </Route>
                     </Switch>
 
