@@ -7,22 +7,6 @@ function Main(props) {
 
     const currentUser = useContext(CurrentUserContext);
 
-    //avatar
-    const handleEditAvatarOpen = (evt) => {
-        console.log("I'm a superstar 1!!!")
-        props.setIsEditAvatarPopupOpen(true)
-    }
-    //profile
-    const handleEditProfileOpen = (evt) => {
-        console.log("I'm a superstar 2!!!")
-        props.setIsEditProfilePopupOpen(true)
-    }
-    //place
-    const handleAddPlaceOpen = (evt) => {
-        console.log("I'm a superstar 3!!!")
-        props.setIsAddPlacePopupOpen(true)
-    }
-
     return (
         /*тут обернуть все в спиннер*/
         <main className="container">
@@ -34,14 +18,14 @@ function Main(props) {
                         />
                         <div className="profile__avatar-edit-container">
                             <button className="profile__foto-edit-button" type="button"
-                                    onClick={handleEditAvatarOpen}/>
+                                    onClick={props.handleEditAvatarOpen}/>
                         </div>
                     </div>
                     <div className="profile__info">
                         <div className="profile__title-edit-button">
                             <h1 className="profile__title">{currentUser.name}</h1>
                             <button className="profile__edit-button" type="button"
-                                    onClick={handleEditProfileOpen}
+                                    onClick={props.handleEditProfileOpen}
                             />
                         </div>
                         <p className="profile__subtitle">{currentUser.about} </p>
@@ -49,7 +33,7 @@ function Main(props) {
                 </div>
                 <div className="profile__button-container">
                     <button className="profile__add-button" type="button"
-                            onClick={handleAddPlaceOpen}/>
+                            onClick={props.handleAddPlaceOpen}/>
                 </div>
 
             </section>

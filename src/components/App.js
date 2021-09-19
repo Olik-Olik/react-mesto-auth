@@ -142,6 +142,21 @@ export default function App(props) {
             })
     }
 
+//avatar
+    const handleEditAvatarOpen = (evt) => {
+        console.log("I'm a superstar 1!!!")
+        handleEditAvatarClick(evt)
+    }
+    //profile
+    const handleEditProfileOpen = (evt) => {
+        console.log("I'm a superstar 2!!!")
+        handleEditProfileClick(evt)
+    }
+    //place
+    const handleAddPlaceOpen = (evt) => {
+        console.log("I'm a superstar 3!!!")
+        handleAddPlaceClick(evt)
+    }
 
     function handleCardClick(card) {
         console.log("I'm a walrus 4!!!")
@@ -278,7 +293,6 @@ export default function App(props) {
                         loggedIn={loggedIn}
                         handleSignOut={handleSignOut}
                     />
-                    {/*    <main className="content">*/}
                     <Route>
                         {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                     </Route>
@@ -294,23 +308,9 @@ export default function App(props) {
                                         onAddPlace={handleAddPlaceClick}
                                         onCardDelete={handleCardDeleteClick}
                                         onCardLike={handleCardLike}
-                            //   isShow={isShowLoad}
-
-                                        setIsEditAvatarPopupOpen={(evt) => {
-                                            console.log("I'm a superstar avatar!!!")
-                                            handleEditAvatarClick(evt)
-                                        }}
-
-                                        setIsEditProfilePopupOpen={(evt) => {
-                                            console.log("I'm a superstar too!!!")
-                                            handleEditProfileClick(evt)
-                                        }}
-
-                                        setIsAddPlacePopupOpen={(evt) => {
-                                            console.log("I'm a superstar too too!!!")
-                                            handleAddPlaceClick(evt)
-                                        }}
-
+                                        handleEditAvatarOpen={handleEditAvatarOpen}
+                                        handleEditProfileOpen={handleEditProfileOpen}
+                                        handleAddPlaceOpen={handleAddPlaceOpen}
                                         setIsImagePopup={(evt) =>
                                             handleCardClick(evt)}
                         />
@@ -320,7 +320,6 @@ export default function App(props) {
                         <Route exact={true} path="/sign-in">
                             <Login
                                 handleLogin={handleLogin}
-                                /*infoSuccess={infoSuccess}*/
                             />
                         </Route>
 
@@ -328,7 +327,6 @@ export default function App(props) {
                         <Route exact={true} path="/sign-up">
                             <Register
                                 handleRegister={handleRegister}
-                                /*infoSuccess={infoSuccess}*/
                             />
 
                         </Route>
