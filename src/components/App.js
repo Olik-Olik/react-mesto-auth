@@ -273,7 +273,6 @@ export default function App(props) {
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-                    {loggedIn === true ? console.log('ww') : console.log('zz')}
                     <Header
                         email={email}
                         credential={credential}
@@ -314,31 +313,11 @@ export default function App(props) {
                                 handleRegister={handleRegister}
                             />
                         </Route>
-
-                        {/*
-                        <Route
-                            render={() => {return (loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>)}}
-                        >
-
-                        </Route>
-*/}
-
                         <Route>
                             {() => loggedIn === true ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                         </Route>
                     </Switch>
                     }
-                    {/*<Route path="/register">
-                        <Register />
-                    </Route>
-                    <Route path="/login">
-                        <Login />
-                    </Route>
-
-                    <Route exact path="/">
-                        {this.state.loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
-                    </Route>
-            */}
 
                     <InfoToolTip
                         isOpen={isRegResOpen}
