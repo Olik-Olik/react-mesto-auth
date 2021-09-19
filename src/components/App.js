@@ -10,13 +10,12 @@ import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import {BrowserRouter, Redirect, Route, Switch,  useHistory} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
 import InfoToolTip from "./InfoToolTip.js";
-import {checkToken} from "../utils/auth";
 
 
 export default function App(props) {
@@ -180,42 +179,15 @@ export default function App(props) {
 
     }
 
-//обработчик регистрации
-//обработчик авторизации
-//обработчик успешной регистрации
-//выхода
-    /*Login — компонент авторизации пользователя с необходимыми стейт-переменными.
-    Register — компонент регистрации пользователя с необходимыми стейт-переменными.*/
-
-
     function handleLogin(password, emmail) {
         return auth
             .login(password, emmail)
-      /*      .then ((data)=>{
-                if (data){
-                    console.log('e');
-                localStorage.setItem("password",password)
-                localStorage.setItem("emmail",emmail)
-                checkToken()
-                    setLoggedIn(true);
-                    console.log('Залогинились!');}
-                else {
-                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + data.statusText);
-                }
-            })*/
             .then((res) => {
                 console.log('d');
-              /*  if (res.ok) {*/
-                if (res) {
-                   // console.log('e');
-                    localStorage.setItem('jwt', res.json().token);
-                    setEmail(emmail);
-                    setLoggedIn(true);
-                    console.log('Залогинились!');
-                } else {
-                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
-                  //  return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
-                }
+                localStorage.setItem('jwt', res.token);
+                setEmail(emmail);
+                setLoggedIn(true);
+                console.log('Залогинились!');
             })
 
             .catch((err) => {
@@ -233,23 +205,16 @@ export default function App(props) {
         return auth
             .register(password, email)
             .then((res) => {
-                if (res.ok) {
                     setInfoSuccess(true);
                     setIsRegResOpen(true);
-                    /*lalalala*/
                     /*history.push("/sign-in")*/
                     console.log("1");
-                } else {
-                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
-                    return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
-                }
             })
             .catch((err) => {
-                console.log('Не зарегались :( ' + err.toString());
-                setInfoSuccess(false);
-                console.log(`Вот такая ошибка вылезла ${err}`)
-                setInfoSuccess(false);
-                setIsRegResOpen(true);
+                    console.log('Не зарегались :( ' + err.toString());
+                    setInfoSuccess(false);
+                    console.log(`Вот такая ошибка вылезла ${err}`)
+                    setIsRegResOpen(true);
                 }
             )
     }
@@ -259,12 +224,9 @@ export default function App(props) {
         console.log("2 - logout");
         localStorage.removeItem('jwt')
         setLoggedIn(false);
-        /*lalala*/
-     /*   history.push("/sign-in")*/
     }
 
 //проверка токена  хуком
-/*      useEffect(() => {*/
     function hukUseEffectToken() {
         // если у пользователя есть токен в localStorage,
         // эта функция проверит валидность токена
@@ -273,106 +235,104 @@ export default function App(props) {
             console.log("has JWT");
             // проверим токен в локалсторадж
             auth.checkToken(jwt)
-                            // здесь можем получить данные пользователя!
-                                // поместим их в стейт внутри App.js
-                                .then((res) => {
-                                    if (res.ok) {
-                                        console.log("333");
-                                        /*history.push('/');*/
-                                        setLoggedIn(true);
-                                    } else {
-                                        console.log("Вылезла ошибка при проверке токена, УПС, Повезло-то как! " + res.statusText);
-                                        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
-                                    }
-                                })
-                                .catch((err) => {
-                                    if (err.status === 400) {
-                                        console.log('400 Некорректно заполнено одно из полей' + err.toString())
-                                    }
+                // здесь можем получить данные пользователя!
+                // поместим их в стейт внутри App.js
+                .then((res) => {
+                    if (res.ok) {
+                        console.log("333");
+                        /*history.push('/');*/
+                        setLoggedIn(true);
+                    } else {
+                        console.log("Вылезла ошибка при проверке токена, УПС, Повезло-то как! " + res.statusText);
+                        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
+                    }
+                })
+                .catch((err) => {
+                        if (err.status === 400) {
+                            console.log('400 Некорректно заполнено одно из полей' + err.toString())
+                        }
 
-                                    if (err.status === 401) {
-                                        console.log("401 Токен пользователь с email не найден" + err.toString())
-                                    }
-                                }
+                        if (err.status === 401) {
+                            console.log("401 Токен пользователь с email не найден" + err.toString())
+                        }
+                    }
                 )
-        }
-        else
-        {
+        } else {
             console.log('Токена нету!!!');
         }
     }
 
-     useEffect(() => {
+    useEffect(() => {
         hukUseEffectToken();
     }, []);
 
     return (
-      /*  который предоставит объект истории, который вы ищете, через ловушку.*/
+        /*  который предоставит объект истории, который вы ищете, через ловушку.*/
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-                        {loggedIn ? console.log('ww') : console.log('zz')}
-                        <Header
-                            email={email}
-                            credential={credential}
-                            loggedIn={loggedIn}
-                            handleSignOut={handleSignOut}
+                    {loggedIn ? console.log('ww') : console.log('zz')}
+                    <Header
+                        email={email}
+                        credential={credential}
+                        loggedIn={loggedIn}
+                        handleSignOut={handleSignOut}
+                    />
+                    {/*    <main className="content">*/}
+                    <Route>
+                        {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+                    </Route>
+
+                    <Switch>
+                        <ProtectedRoute exact={true} path='/'
+                                        component={Main}
+                                        loggedIn={loggedIn}
+                                        cards={cards}
+                                        onCardClick={handleCardClick}
+                                        onEditAvatar={handleEditAvatarClick}
+                                        onEditProfile={handleEditProfileClick}
+                                        onAddPlace={handleAddPlaceClick}
+                                        onCardDelete={handleCardDeleteClick}
+                                        onCardLike={handleCardLike}
+                            //   isShow={isShowLoad}
+
+                                        setIsEditAvatarPopupOpen={(evt) => {
+                                            console.log("I'm a superstar avatar!!!")
+                                            handleEditAvatarClick(evt)
+                                        }}
+
+                                        setIsEditProfilePopupOpen={(evt) => {
+                                            console.log("I'm a superstar too!!!")
+                                            handleEditProfileClick(evt)
+                                        }}
+
+                                        setIsAddPlacePopupOpen={(evt) => {
+                                            console.log("I'm a superstar too too!!!")
+                                            handleAddPlaceClick(evt)
+                                        }}
+
+                                        setIsImagePopup={(evt) =>
+                                            handleCardClick(evt)}
                         />
-                {/*    <main className="content">*/}
-                        <Route>
-                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in"/>}
+
+
+                        {/*авторизация*/}
+                        <Route exact={true} path="/sign-in">
+                            <Login
+                                handleLogin={handleLogin}
+                                /*infoSuccess={infoSuccess}*/
+                            />
                         </Route>
 
-                        <Switch>
-                            <ProtectedRoute exact={true} path = '/'
-                                            component={Main}
-                                            loggedIn={loggedIn}
-                                            cards={cards}
-                                            onCardClick={handleCardClick}
-                                            onEditAvatar={handleEditAvatarClick}
-                                            onEditProfile={handleEditProfileClick}
-                                            onAddPlace={handleAddPlaceClick}
-                                            onCardDelete={handleCardDeleteClick}
-                                            onCardLike={handleCardLike}
-                                         //   isShow={isShowLoad}
-
-                                            setIsEditAvatarPopupOpen={(evt) => {
-                                                console.log("I'm a superstar avatar!!!")
-                                                handleEditAvatarClick(evt)
-                                            }}
-
-                                            setIsEditProfilePopupOpen={(evt) => {
-                                                console.log("I'm a superstar too!!!")
-                                                handleEditProfileClick(evt)
-                                            }}
-
-                                            setIsAddPlacePopupOpen={(evt) => {
-                                                console.log("I'm a superstar too too!!!")
-                                                handleAddPlaceClick(evt)
-                                            }}
-
-                                            setIsImagePopup={(evt) =>
-                                                handleCardClick(evt)}
+                        {/*регистрация */}
+                        <Route exact={true} path="/sign-up">
+                            <Register
+                                handleRegister={handleRegister}
+                                /*infoSuccess={infoSuccess}*/
                             />
 
-
-                            {/*авторизация*/}
-                            <Route exact={true} path="/sign-in">
-                                <Login
-                                    handleLogin={handleLogin}
-                                    /*infoSuccess={infoSuccess}*/
-                                />
-                            </Route>
-
-                            {/*регистрация */}
-                            <Route exact={true} path="/sign-up">
-                                <Register
-                                    handleRegister={handleRegister}
-                                    /*infoSuccess={infoSuccess}*/
-                                />
-
-                            </Route>
-                        </Switch>
+                        </Route>
+                    </Switch>
 
                     <InfoToolTip
                         isOpen={isRegResOpen}
@@ -380,35 +340,35 @@ export default function App(props) {
                         infoSuccess={infoSuccess}
                     />
 
-                            <EditAvatarPopup
-                                isOpen={isEditAvatarPopupOpen}
-                                onClose={closeAllPopups}
-                                handleUpdateAvatar={handleUpdateAvatar}
-                                buttonText="Cохранить"/>
+                    <EditAvatarPopup
+                        isOpen={isEditAvatarPopupOpen}
+                        onClose={closeAllPopups}
+                        handleUpdateAvatar={handleUpdateAvatar}
+                        buttonText="Cохранить"/>
 
-                          <EditProfilePopup
-                                isOpen={isEditProfilePopupOpen}
-                                onClose={closeAllPopups}
-                                buttonText="Сохранить"
-                                handleUpdateProfile={handleUpdateProfile}
-                            />
+                    <EditProfilePopup
+                        isOpen={isEditProfilePopupOpen}
+                        onClose={closeAllPopups}
+                        buttonText="Сохранить"
+                        handleUpdateProfile={handleUpdateProfile}
+                    />
 
-                            <AddPlacePopup
-                                isOpen={isAddPlacePopupOpen}
-                                onClose={closeAllPopups}
-                                onAddPlacePopup={handleAddPlaceSubmit}
-                                buttonText="Добавить"/>
+                    <AddPlacePopup
+                        isOpen={isAddPlacePopupOpen}
+                        onClose={closeAllPopups}
+                        onAddPlacePopup={handleAddPlaceSubmit}
+                        buttonText="Добавить"/>
 
 
-                            <ConfirmDeletePopup
-                                isOpen={isConfirmDeletePopup}
-                                onClose={closeAllPopups}
-                                buttonText="Да"/>
+                    <ConfirmDeletePopup
+                        isOpen={isConfirmDeletePopup}
+                        onClose={closeAllPopups}
+                        buttonText="Да"/>
 
-                           <ImagePopup
-                                    isOpen={isImagePopupOpen}
-                                    card={selectedCard}
-                                    onClose={closeAllPopups}/>
+                    <ImagePopup
+                        isOpen={isImagePopupOpen}
+                        card={selectedCard}
+                        onClose={closeAllPopups}/>
                 </>
                 <Footer/>
             </CurrentUserContext.Provider>
