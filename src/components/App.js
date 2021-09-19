@@ -220,10 +220,10 @@ export default function App(props) {
         return auth
             .register(password, email)
             .then((res) => {
-                    setInfoSuccess(true);
-                    setIsRegResOpen(true);
-                    /*history.push("/sign-in")*/
-                    console.log("1");
+                setInfoSuccess(true);
+                setIsRegResOpen(true);
+                /*history.push("/sign-in")*/
+                console.log("1");
             })
             .catch((err) => {
                     console.log('Не зарегались :( ' + err.toString());
@@ -253,27 +253,15 @@ export default function App(props) {
                 // здесь можем получить данные пользователя!
                 // поместим их в стейт внутри App.js
                 .then((res) => {
-                    if (res.ok) {
-                        console.log("333");
-                        /*history.push('/');*/
-                        setLoggedIn(true);
-                    } else {
-                        console.log("Вылезла ошибка при проверке токена, УПС, Повезло-то как! " + res.statusText);
-                        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
-                    }
+                    setLoggedIn(true);
+                    setEmail(res.data.email);
                 })
                 .catch((err) => {
-                        if (err.status === 400) {
-                            console.log('400 Некорректно заполнено одно из полей' + err.toString())
-                        }
-
-                        if (err.status === 401) {
-                            console.log("401 Токен пользователь с email не найден" + err.toString())
-                        }
-                    }
-                )
+                    setLoggedIn(false);
+                })
         } else {
             console.log('Токена нету!!!');
+            setLoggedIn(false);
         }
     }
 
