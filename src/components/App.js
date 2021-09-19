@@ -164,7 +164,6 @@ export default function App(props) {
         setIsImagePopupOpen(true);
     }
 
-
     function handleCardDeleteClick(card) {
         console.log("Anything interesting - delete");
         const isOwn = card.owner._id === currentUser._id;
@@ -204,7 +203,6 @@ export default function App(props) {
                 setLoggedIn(true);
                 console.log('Залогинились!');
             })
-
             .catch((err) => {
                 console.log('Не залогинились :( ' + err.toString());
                 if (err.status === 400) {

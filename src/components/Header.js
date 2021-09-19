@@ -12,25 +12,27 @@ function Header(props) {
     return (
         <header className="header">
             <div className="auth__correct-logo-header">
-            <img alt="logo" className="header__logo" src={logo}/>
-            <Switch>
-                <Route exact path='/'>
-                    <Link to='/sign-in' onClick={props.handleSignOut} className="auth__header-exit">
+                <img alt="logo" className="header__logo" src={logo}/>
+                <Switch>
+                    <Route exact path='/'>
+                        <a className= "auth__correct-logo-exit-email">
                         <span className="auth__header-email">{props.email}</span>
-                        <span>Выйти</span>
-                    </Link>
-                </Route>
-                <Route exact path='/sign-in'>
-                    <Link to='/sign-up' className="auth__header-exit">
-                        <span>Регистрация</span>
-                    </Link>
-                </Route>
-                <Route exact path='/sign-up'>
-                    <Link to='/sign-in' className="auth__header-exit">
-                        <span>Войти</span>
-                    </Link>
-                </Route>
-            </Switch>
+                        <Link to='/sign-in' onClick={props.handleSignOut} className="auth__header-exit">
+                            <span>Выйти</span>
+                        </Link>
+                        </a>
+                    </Route>
+                    <Route exact path='/sign-in'>
+                        <Link to='/sign-up' className="auth__header-exit">
+                            <span>Регистрация</span>
+                        </Link>
+                    </Route>
+                    <Route exact path='/sign-up'>
+                        <Link to='/sign-in' className="auth__header-exit">
+                            <span>Войти</span>
+                        </Link>
+                    </Route>
+                </Switch>
             </div>
         </header>)
 }
