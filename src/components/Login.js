@@ -45,7 +45,7 @@ function Login(props) {
                 </label>*/}
 
                 <input className="auth__form-login-input-password"
-                       autoComplete="off"
+                      /* autoComplete="off"*/
                        required
                        name="password"
                        type="password"
