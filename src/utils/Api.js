@@ -40,7 +40,6 @@ class Api {
             .then((response) => this._handleResponse(response));
     }
 
-
     setUserInfo(inputNameUserInfo, inputAboutUserInfo) {
         console.log(inputNameUserInfo);
         console.log(inputAboutUserInfo);

@@ -1,6 +1,5 @@
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
-// err!!!
 export const checkToken = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
         method: 'GET',
@@ -11,15 +10,6 @@ export const checkToken = (token) => {
             'Authorization': `Bearer ${token}`,
         }
     }).then((response) => handleResponse(response));
-
-  /*      .then((credential) => {
-            return (credential)
-        })
-        .catch((err) => {
-            console.log(err)
-            return Promise.reject(err)
-        })*/
-    //   .catch() дописать
 }
 
 
@@ -39,20 +29,16 @@ export const register = (password, email) =>{
 }
  function handleResponse(response) {
     if (response.ok) {
-       // console.log("Got response: " + response.status + ":" + response.statusText);
         return response;//.json()
        // return response.json()
     } else {
-      //  console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
-       // return response;
-        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
+        return response;
+       // return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
     }
 }
 
-
-
-
 //IN
+
 export const login = (password, email) => {
     return fetch(`${BASE_URL}/signin`, {
         method: 'POST',
@@ -64,8 +50,32 @@ export const login = (password, email) => {
             password: password,
             email: email
         })
-    }).then((response) => handleResponse(response))
+    })
+        .then((response) => handleResponse(response))
+        /*.then ((data)=> {
+            localStorage.setItem('jwt', data.json().token)
+            return data.token;
+        })*/
+        .catch((err) => {
+            console.log('Не залогинились :( ' + err.toString());})}
+
+        /*.then((res)=> {
+            if (res.ok) {
+                console.log('e');
+                localStorage.setItem('jwt', res.json().token)
+                console.log('Залогинились!');
+                 return res.json().token;
+            }})
+        .catch((err) => {
+            console.log('Не залогинились :( ' + err.toString());
+            if (err.status === 400) {
+                console.log('400 Некорректно заполнено одно из полей' + err.toString())
+            }
+            if (err.status === 401) {
+                console.log("401 пользователь с email не найден" + err.toString())
+            }
+        })*/
 
 
-};
+
 

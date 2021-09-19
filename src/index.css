@@ -108,6 +108,7 @@
 @import url(./blocks/auth/__login-label/__auth__login-label.css);
 @import url(./blocks/auth/__header-email/auth__header-email.css);
 @import url(./blocks/auth/__correct-logo-header/auth__correct-logo-header.css);
+@import url(./blocks/elements/__trash/elements__trash-hidden.css);
 
 
 

@@ -16,6 +16,7 @@ import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
 import InfoToolTip from "./InfoToolTip.js";
+import {checkToken} from "../utils/auth";
 
 
 export default function App(props) {
@@ -32,7 +33,6 @@ export default function App(props) {
     const [loggedIn, setLoggedIn] = useState(false);
     const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);
     const [infoSuccess, setInfoSuccess] = useState(false);
-  //  const [isShowLoad, setIsShowLoad] = useState(false);
     const [credential, setCredential] = useState({});
     const [isRegResOpen, setIsRegResOpen] = useState(false);
 
@@ -43,12 +43,10 @@ export default function App(props) {
                 setCards(res)
             })
             .catch((err) => console.log('MAMA, Карточки не  получены!!!: ' + err.toString())
-                /* .finally(()=> setIsShow(false))*/
             ), []);
     /* })*/
 
-    /* useEffect(()=> {
-         isShow(true);*/
+
 //user
     useEffect(() => {
         api.getUserInfo()
@@ -159,7 +157,9 @@ export default function App(props) {
         if (isOwn) {
             api.submitRemoveCard(card._id)
                 .then(newArrCards => {
-                    setCards(cards.filter((c) => c._id !== card._id))
+                    /* !!!!  бывают ситуации, что где-то уже изменили эту переменную,
+                    но еще не обновились данные в ней, а Вы попытаетесь изменить старые данные, которые неактуальны больше*/
+                    setCards((state) => state.filter((c) => c._id !== card._id))
                     closeAllPopups();
                 })
                 .catch((err) => {
@@ -191,19 +191,33 @@ export default function App(props) {
     function handleLogin(password, emmail) {
         return auth
             .login(password, emmail)
+      /*      .then ((data)=>{
+                if (data){
+                    console.log('e');
+                localStorage.setItem("password",password)
+                localStorage.setItem("emmail",emmail)
+                checkToken()
+                    setLoggedIn(true);
+                    console.log('Залогинились!');}
+                else {
+                    console.log("Вылезла ошибка, УПС, Повезло-то как! " + data.statusText);
+                }
+            })*/
             .then((res) => {
                 console.log('d');
-                if (res.ok) {
-                    console.log('e');
+              /*  if (res.ok) {*/
+                if (res) {
+                   // console.log('e');
                     localStorage.setItem('jwt', res.json().token);
                     setEmail(emmail);
                     setLoggedIn(true);
                     console.log('Залогинились!');
                 } else {
                     console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
-                    return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
+                  //  return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + res.status + ":" + res.statusText);
                 }
             })
+
             .catch((err) => {
                 console.log('Не залогинились :( ' + err.toString());
                 if (err.status === 400) {
@@ -297,7 +311,6 @@ export default function App(props) {
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-
                         {loggedIn ? console.log('ww') : console.log('zz')}
                         <Header
                             email={email}

@@ -9,14 +9,14 @@ function Card(props) {
 
 // Определяем, есть ли у карточки лайк, поставленный текущим пользователем - мной
     const isLiked = props.card.likes.some(i => i._id === currentUser._id);
-
-
 // Создаём переменную, которую после зададим в `className` для кнопки удаления
     const cardDeleteButtonClassName =
         /*`card__delete-button ${props.isOwn ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`*/
 // Если собственник = текущему id юзера, то мусорка активна : иначе - не удалить.
-        `${isOwn ? 'elements__trash' : ''}`;
 
+        `${isOwn ? 'elements__trash' : 'elements__trash-hidden'}`;
+
+ /*  ` ${props.isOwn === currentUser._id ? '': 'elements__trash-hidden'}`*/
 
 // Создаём переменную, которую после зададим в `className` для кнопки лайка
 // Если лайкнуто текущим мной-чернеет лайк
@@ -40,7 +40,9 @@ function Card(props) {
 
     return (
   //      <CurrentUserContext.Provider value={currentUser}>
-            <div className="elements__card">
+            <div className="elements__card"
+           /*      onClick={handleCardClick}*/
+            >
                 <div className="elements__trash-image">
                     <button aria-label='Удаление элемента'
                             type="button"
