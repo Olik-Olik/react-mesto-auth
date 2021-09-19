@@ -18,8 +18,10 @@ function Login(props) {
 
     function handleSubmitLogin(evt) {
         evt.preventDefault();
-        props.handleLogin(password, email);
-        history.push('/');
+        props.handleLogin(password, email).then(() => {
+                history.push('/')
+            }
+        );
     }
 
     return (
@@ -28,27 +30,21 @@ function Login(props) {
             <form onSubmit={handleSubmitLogin}
                   className="auth__form-login">
 
-                {/*<label htmlFor="email"  className="auth__login-label">
-                    Email
-                </label>*/}
                 <input
                     className="auth__form-login-input-email"
                     required
                     name="email"
                     type="email"
-                    value={email ||""}
+                    value={email || ""}
                     placeholder="Email"
                     onChange={handleChangeEmail}/>
-                {/*<label htmlFor="password" className="auth__login-label">
-                    Пароль
-                </label>*/}
 
                 <input className="auth__form-login-input-password"
                       /* autoComplete="off"*/
                        required
                        name="password"
                        type="password"
-                       value={password ||""}
+                       value={password || ""}
 
                        placeholder="Пароль"
                        onChange={handleChangePassword}
@@ -68,7 +64,6 @@ function Login(props) {
             </div>
         </div>
     )
-
 }
 
 export default Login;

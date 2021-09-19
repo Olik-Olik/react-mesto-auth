@@ -10,12 +10,12 @@ import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import {BrowserRouter, Redirect, Route, Switch, useHistory} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
 import * as auth from '../utils/auth';
-import InfoToolTip from "./InfoToolTip.js";
+import InfoToolTip from "./InfoToolTip";
 
 
 export default function App(props) {
@@ -28,9 +28,8 @@ export default function App(props) {
     const [cards, setCards] = useState([]);
     const [currentUser, setCurrentUser] = useState({});
     const [email, setEmail] = useState("");
-/*    const history = useHistory();*/
+    const [isLoading, setIsLoading] = useState(true);
     const [loggedIn, setLoggedIn] = useState(false);
-/*    const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);*/
     const [infoSuccess, setInfoSuccess] = useState(false);
     const [credential, setCredential] = useState({});
     const [isRegResOpen, setIsRegResOpen] = useState(false);
@@ -47,15 +46,20 @@ export default function App(props) {
                 // здесь можем получить данные пользователя!
                 // поместим их в стейт внутри App.js
                 .then((res) => {
+                    console.log('Ответ есть!');
                     setLoggedIn(true);
                     setEmail(res.data.email);
+                    setIsLoading(false);
                 })
                 .catch((err) => {
+                    console.log('Ответа нет! ' + err.toString());
                     setLoggedIn(false);
+                    setIsLoading(false);
                 })
         } else {
             console.log('Токена нету!!!');
             setLoggedIn(false);
+            setIsLoading(false);
         }
     }
 
@@ -263,12 +267,13 @@ export default function App(props) {
         setLoggedIn(false);
     }
 
+
     return (
         /*  который предоставит объект истории, который вы ищете, через ловушку.*/
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-                    {loggedIn ? console.log('ww') : console.log('zz')}
+                    {loggedIn === true ? console.log('ww') : console.log('zz')}
                     <Header
                         email={email}
                         credential={credential}
@@ -278,9 +283,9 @@ export default function App(props) {
                  {/*   <Route>
                         {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                     </Route>*/}
-
+                    {!isLoading &&
                     <Switch>
-                        <ProtectedRoute exact={true} path='/'
+                        <ProtectedRoute exact={true} path="/"
                                         component={Main}
                                         loggedIn={loggedIn}
                                         cards={cards}
@@ -310,7 +315,7 @@ export default function App(props) {
                             />
                         </Route>
 
-{/*
+                        {/*
                         <Route
                             render={() => {return (loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>)}}
                         >
@@ -319,9 +324,21 @@ export default function App(props) {
 */}
 
                         <Route>
-                            {() => loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+                            {() => loggedIn === true ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                         </Route>
                     </Switch>
+                    }
+                    {/*<Route path="/register">
+                        <Register />
+                    </Route>
+                    <Route path="/login">
+                        <Login />
+                    </Route>
+
+                    <Route exact path="/">
+                        {this.state.loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+                    </Route>
+            */}
 
                     <InfoToolTip
                         isOpen={isRegResOpen}
