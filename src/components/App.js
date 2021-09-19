@@ -65,7 +65,7 @@ export default function App(props) {
 
     useEffect(() => {
         hukUseEffectToken();
-    }, []);
+    }, [isLoading]);
 
 //card
     useEffect(() => {
@@ -282,7 +282,7 @@ export default function App(props) {
                     {/*   <Route>
                         {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                     </Route>*/}
-                    {!isLoading &&
+                    { !isLoading &&
                     <Switch>
                         <ProtectedRoute exact={true} path="/"
                                         component={Main}
