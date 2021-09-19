@@ -65,7 +65,7 @@ export default function App(props) {
 
     useEffect(() => {
         hukUseEffectToken();
-    }, [isLoading]);
+    }, []);
 
 //card
     useEffect(() => {
