@@ -10,13 +10,12 @@ import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/Api";
-import {BrowserRouter, Redirect, Route, Switch, Link, useHistory} from 'react-router-dom';
-import { withRouter } from 'react-router';
+import {BrowserRouter, Redirect, Route, Switch,  useHistory} from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
-import * as auth from './auth';
-import RegisterResult from "./RegisterResult";
+import * as auth from '../utils/auth';
+import InfoToolTip from "./InfoToolTip.js";
 
 
 export default function App(props) {
@@ -27,23 +26,16 @@ export default function App(props) {
     const [isConfirmDeletePopup, setIsConfirmDeletePopup] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [cards, setCards] = useState([]);
-    const [currentUser, setCurrentUser] = useState({});//Стейт переменная используется
-    // как значение провайдера контекста
-    //Провайдер контекст транслирует дочерним компонентам это значение.
+    const [currentUser, setCurrentUser] = useState({});
     const [email, setEmail] = useState("");
-
     const history = useHistory();
     const [loggedIn, setLoggedIn] = useState(false);
     const [infoTooltipPopup, setInfoTooltipPopup] = useState(false);
     const [infoSuccess, setInfoSuccess] = useState(false);
-    const [isShowLoad, setIsShowLoad] = useState(false);
+  //  const [isShowLoad, setIsShowLoad] = useState(false);
     const [credential, setCredential] = useState({});
     const [isRegResOpen, setIsRegResOpen] = useState(false);
 
-
-
-    /* useEffect(()=> {
-         isShow(true);*/
 //card
     useEffect(() =>
         api.getInitialCards()
@@ -204,10 +196,8 @@ export default function App(props) {
                 if (res.ok) {
                     console.log('e');
                     localStorage.setItem('jwt', res.json().token);
-                    /*lalalala*/
                     setEmail(emmail);
                     setLoggedIn(true);
-                    /*history.push('/');*/
                     console.log('Залогинились!');
                 } else {
                     console.log("Вылезла ошибка, УПС, Повезло-то как! " + res.statusText);
@@ -307,7 +297,6 @@ export default function App(props) {
         <BrowserRouter>
             <CurrentUserContext.Provider value={currentUser}>
                 <>
-                {/*  <main className="content">*/}
 
                         {loggedIn ? console.log('ww') : console.log('zz')}
                         <Header
@@ -318,7 +307,7 @@ export default function App(props) {
                         />
                 {/*    <main className="content">*/}
                         <Route>
-                            {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
+                            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in"/>}
                         </Route>
 
                         <Switch>
@@ -332,7 +321,8 @@ export default function App(props) {
                                             onAddPlace={handleAddPlaceClick}
                                             onCardDelete={handleCardDeleteClick}
                                             onCardLike={handleCardLike}
-                                            isShow={isShowLoad}
+                                         //   isShow={isShowLoad}
+
                                             setIsEditAvatarPopupOpen={(evt) => {
                                                 console.log("I'm a superstar avatar!!!")
                                                 handleEditAvatarClick(evt)
@@ -367,45 +357,45 @@ export default function App(props) {
                                     handleRegister={handleRegister}
                                     /*infoSuccess={infoSuccess}*/
                                 />
-                                <RegisterResult
-                                    isOpen={isRegResOpen}
-                                    onClose={closeAllPopups}
-                                    infoSuccess={infoSuccess}
-                                />
+
                             </Route>
                         </Switch>
 
-                            {isEditAvatarPopupOpen && <EditAvatarPopup
+                    <InfoToolTip
+                        isOpen={isRegResOpen}
+                        onClose={closeAllPopups}
+                        infoSuccess={infoSuccess}
+                    />
+
+                            <EditAvatarPopup
                                 isOpen={isEditAvatarPopupOpen}
                                 onClose={closeAllPopups}
                                 handleUpdateAvatar={handleUpdateAvatar}
-                                buttonText="Cохранить"/>}
+                                buttonText="Cохранить"/>
 
-                            {isEditProfilePopupOpen && <EditProfilePopup
+                          <EditProfilePopup
                                 isOpen={isEditProfilePopupOpen}
                                 onClose={closeAllPopups}
                                 buttonText="Сохранить"
                                 handleUpdateProfile={handleUpdateProfile}
                             />
-                            }
-                            {isAddPlacePopupOpen && <AddPlacePopup
+
+                            <AddPlacePopup
                                 isOpen={isAddPlacePopupOpen}
                                 onClose={closeAllPopups}
                                 onAddPlacePopup={handleAddPlaceSubmit}
                                 buttonText="Добавить"/>
-                            }
+
 
                             <ConfirmDeletePopup
                                 isOpen={isConfirmDeletePopup}
                                 onClose={closeAllPopups}
                                 buttonText="Да"/>
 
-                            { isImagePopupOpen && <ImagePopup
+                           <ImagePopup
                                     isOpen={isImagePopupOpen}
                                     card={selectedCard}
                                     onClose={closeAllPopups}/>
-                            }
-               {/*     </main>*/}
                 </>
                 <Footer/>
             </CurrentUserContext.Provider>

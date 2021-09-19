@@ -12,7 +12,6 @@ export const checkToken = (token) => {
         }
     }).then((response) => handleResponse(response));
 
-
   /*      .then((credential) => {
             return (credential)
         })
@@ -40,14 +39,18 @@ export const register = (password, email) =>{
 }
  function handleResponse(response) {
     if (response.ok) {
-        console.log("Got response: " + response.status + ":" + response.statusText);
+       // console.log("Got response: " + response.status + ":" + response.statusText);
         return response;//.json()
+       // return response.json()
     } else {
-        console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
-        return response;
-        //return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
+      //  console.log("Вылезла ошибка, УПС, Повезло-то как! " + response.statusText);
+       // return response;
+        return Promise.reject("Вылезла ошибка, УПС, Повезло-то как! " + response.status + ":" + response.statusText);
     }
 }
+
+
+
 
 //IN
 export const login = (password, email) => {
@@ -61,7 +64,8 @@ export const login = (password, email) => {
             password: password,
             email: email
         })
-    }).then((response) => handleResponse(response));
+    }).then((response) => handleResponse(response))
+
 
 };
 

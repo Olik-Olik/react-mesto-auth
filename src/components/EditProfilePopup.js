@@ -10,7 +10,7 @@ function EditProfilePopup(props) {
     useEffect(() => {
         setProfileTitle(currentUser.name)
         setProfileJob(currentUser.about)
-    }, [])
+    }, [currentUser, props.isOpen])
 
     function handleChangeProfileTitle(evt) {
         setProfileTitle(evt.target.value)

@@ -1,8 +1,10 @@
+/*компонент модального окна,который информирует пользователя об успешной (или не очень) регистрации.*/
 import React from "react";
-import One_More_Icon from '../images/One_More_Icon.svg';
-import Success_Icon from '../images/Success_Icon.svg';
+//это были картинки и для сохранения общего стиля с большой буквы сделала, исправляю по ревью.
+import oneMoreIcon from '../images/oneMoreIcon.svg';
+import Success_Icon from '../images/successIcon.svg';
 
-function RegisterResult(props){
+function InfoToolTip(props){
 
     return (
         <div className={`popup ${props.isOpen ? "popup_opened" : ""} auth__tooltip-icon`}>
@@ -19,7 +21,7 @@ function RegisterResult(props){
                     <div className="popup__container-image">
                         <img className="auth__tooltip-icon"
                              alt="Картинка захода"
-                             src={`${props.infoSuccess ? Success_Icon : One_More_Icon}`}
+                             src={`${props.infoSuccess ? Success_Icon : oneMoreIcon}`}
                         />
                     </div>
                 </div>
@@ -29,4 +31,4 @@ function RegisterResult(props){
 
 
 }
-export default RegisterResult;
+export default InfoToolTip;

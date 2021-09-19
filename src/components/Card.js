@@ -39,7 +39,7 @@ function Card(props) {
 
 
     return (
-        <CurrentUserContext.Provider value={currentUser}>
+  //      <CurrentUserContext.Provider value={currentUser}>
             <div className="elements__card">
                 <div className="elements__trash-image">
                     <button aria-label='Удаление элемента'
@@ -65,7 +65,7 @@ function Card(props) {
                     </div>
                 </div>
             </div>
-        </CurrentUserContext.Provider>
+  //      </CurrentUserContext.Provider>
     )
 }
 
